@@ -9,13 +9,8 @@
         static void Main(string[] args)
         {
             OperationOfCollection operationOfCollection = new OperationOfCollection();
-            List<string> ingredientsForPizza = new List<string>();
-            operationOfCollection.FillCollection(ingredientsForPizza);
+            operationOfCollection.DisplayIngredients();
 
-
-
-        }
-
-       
+        }      
     }
 }
