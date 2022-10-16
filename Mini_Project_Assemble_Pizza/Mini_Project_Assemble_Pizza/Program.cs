@@ -1,6 +1,6 @@
 ﻿namespace Mini_Project_Assemble_Pizza
 {
-    using Mini_Project_Assemble_Pizza.Collection;
+    using Mini_Project_Assemble_Pizza.CollectionIngredients;
     using System;
     using System.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿namespace Mini_Project_Assemble_Pizza.Collection
+﻿namespace Mini_Project_Assemble_Pizza.CollectionIngredients
 {
     using System;
     using System.Collections.Generic;
@@ -23,7 +23,7 @@
             return ingredientsForPizza;
         }
 
-        public void Display(List<string> ingredientsForPizza)
+        public void DisplayIngredients(List<string> ingredientsForPizza)
         {
             for (int i = 0; i < ingredientsForPizza.Count; i++)
             {
