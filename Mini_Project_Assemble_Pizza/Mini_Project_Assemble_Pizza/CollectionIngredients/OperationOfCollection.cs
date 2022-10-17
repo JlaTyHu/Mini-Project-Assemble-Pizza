@@ -67,7 +67,7 @@
 
             Console.WriteLine();
 
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine($"Game will start in {defaultTimer - i}");
                 System.Threading.Thread.Sleep(1000);

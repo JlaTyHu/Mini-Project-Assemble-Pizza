@@ -7,7 +7,6 @@
         public int ValidationNumberToRemember(int count)
         {
             int result = count <= 5 ? count : 5;
-
             return result;
         }
 
@@ -19,6 +18,11 @@
             }
 
             return userChoiceLvl;
+        }
+
+        public double ValidationUserScore(double score, int lvl, int attemp)
+        {
+            return score += lvl == 1 ? (10 / attemp) : ((10 + lvl) / attemp);
         }
     }
 }
