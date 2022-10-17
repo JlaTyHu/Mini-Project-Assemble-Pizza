@@ -64,36 +64,59 @@
             while (userChoiceLvl <= 12)
             {
                 Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
-                    RandomIngredients(validation.ValidationNumberToRemember(userChoiceLvl));
+                    RandomIngredients(this.validation.ValidationNumberToRemember(userChoiceLvl));
 
                 int attemp = 1;
+                string messageAfterLvl;
 
-                Console.WriteLine($"Current game level: {userChoiceLvl}\n");
+                Console.WriteLine($"Current game level: {userChoiceLvl}");
+                Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity, otherwise you won't get any points!\n");
 
                 while (ingredientsToRemember.Count != 0)
                 {
                     Console.Write("Enter Ingredient: ");
                     string userInputIngredients = Console.ReadLine();
-                    Console.WriteLine("\n");
 
                     Console.Write("Enter number of pieces for ingredients: ");
                     int numberOfPiecesForIngredients = Int32.Parse(Console.ReadLine());
-                    Console.WriteLine("\n");
 
-                    if (ingredientsToRemember[userInputIngredients] == numberOfPiecesForIngredients)
+                    if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
+                        ingredientsToRemember.ContainsValue(numberOfPiecesForIngredients))
                     {
-                        userScore += 10;
+                        Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
+                            $"have {numberOfPiecesForIngredients} pieces!\n");
+
+                        userScore += ((10 + userChoiceLvl) / attemp);
                         ingredientsToRemember.Remove(userInputIngredients);
+                    }
+                    else if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
+                        !ingredientsToRemember.ContainsValue(numberOfPiecesForIngredients))
+                    {
+                        Console.WriteLine($"\nYou are mistaken! Ingredient: {userInputIngredients} " +
+                            $"does not have {numberOfPiecesForIngredients} pieces!\n");
+
+                        attemp++;
                     }
                     else
                     {
+                        Console.WriteLine($"\nWrong ingredient!\n");
                         attemp++;
+                    }
+
+                    if (attemp == 5)
+                    {
+                        Console.WriteLine("You've run out of attempts!");
+                        break;
                     }
                 }
 
-                Console.WriteLine($"You completed the level: {userChoiceLvl}!");
+                messageAfterLvl = attemp != 5 ? $"You have won level: {userChoiceLvl}!" : $"You have lost level: {userChoiceLvl}!";
+                Console.WriteLine(messageAfterLvl);
+
                 userChoiceLvl++;
-                userScore = userScore / attemp;
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
             }
 
             Console.WriteLine($"Game ended! Youre total score = {userScore}");
@@ -102,13 +125,13 @@
         public void ChoiceLevel()
         {
             Console.WriteLine("Select level from 1 to 12.");
-            int choiseLevelUser = validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
+            int choiseLevelUser = this.validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
             StartGame(choiseLevelUser);
         }
 
         void AddToLeadboard(string userName, int record)
         {
-            people.Add(userName, record);
+            this.people.Add(userName, record);
         }
     }
 }

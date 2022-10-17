@@ -1,9 +1,7 @@
 ﻿namespace Mini_Project_Assemble_Pizza.CollectionIngredients
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class OperationOfCollection
     {
@@ -43,17 +41,18 @@
         {
             Random rnd = new Random();
             Dictionary<string, int> ingredientsToRemember = new Dictionary<string, int>();
-            int tempIngredient;
-            int tempPiece;
+            List<string> copyListOfIngredients = new List<string>(this.Ingredients);
+            int randomIngredient;
+            int randomPiece;
 
             for (int i = 0; i < numberOfIngredientsToRemember; i++)
             {
-                tempIngredient = rnd.Next(0, this.Ingredients.Count);
-                tempPiece = rnd.Next(1, 5);
+                randomIngredient = rnd.Next(0, copyListOfIngredients.Count);
+                randomPiece = rnd.Next(1, 5);
 
-                Console.WriteLine($"Ingredient: {this.Ingredients[tempIngredient]}, piece: {tempPiece}");
-                ingredientsToRemember.Add(this.Ingredients[tempIngredient], tempPiece);
-                this.Ingredients.Remove(this.Ingredients[tempIngredient]);
+                Console.WriteLine($"Ingredient: {copyListOfIngredients[randomIngredient]}, piece: {randomPiece}");
+                ingredientsToRemember.Add(copyListOfIngredients[randomIngredient], randomPiece);
+                copyListOfIngredients.Remove(copyListOfIngredients[randomIngredient]);
 
                 System.Threading.Thread.Sleep(1000);
             }
