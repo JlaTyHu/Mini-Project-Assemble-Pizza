@@ -1,7 +1,9 @@
 ﻿namespace Mini_Project_Assemble_Pizza.CollectionIngredients
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class OperationOfCollection
     {
@@ -46,11 +48,13 @@
 
             for (int i = 0; i < numberOfIngredientsToRemember; i++)
             {
-                tempIngredient = rnd.Next(0, 12);
+                tempIngredient = rnd.Next(0, this.Ingredients.Count);
                 tempPiece = rnd.Next(1, 5);
-                Console.WriteLine($"Ingredient: {this.Ingredients[tempIngredient]}, piece: {tempPiece}");
 
+                Console.WriteLine($"Ingredient: {this.Ingredients[tempIngredient]}, piece: {tempPiece}");
                 ingredientsToRemember.Add(this.Ingredients[tempIngredient], tempPiece);
+                this.Ingredients.Remove(this.Ingredients[tempIngredient]);
+
                 System.Threading.Thread.Sleep(1000);
             }
 
