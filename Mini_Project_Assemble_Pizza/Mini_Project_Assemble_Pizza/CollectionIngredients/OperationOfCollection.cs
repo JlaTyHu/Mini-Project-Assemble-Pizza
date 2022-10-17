@@ -5,11 +5,63 @@
 
     public class OperationOfCollection
     {
-        List<string> Ingredients { get; set; }
-
-        public OperationOfCollection()
+        public Dictionary<string, int> RandomIngredients(int numberOfIngredientsToRemember)
         {
-            this.Ingredients = new List<string>
+            Random rnd = new Random();
+            Dictionary<string, int> randomIngredientsToRemember = new Dictionary<string, int>();
+            List<string> listOfIngredients = new List<string>();
+
+            int randomIngredient;
+            int randomPiece;
+
+            FillTheListWithIngredients(listOfIngredients);
+
+            for (int i = 0; i < numberOfIngredientsToRemember; i++)
+            {
+                randomIngredient = rnd.Next(0, listOfIngredients.Count);
+                randomPiece = rnd.Next(1, 5);
+
+                Console.WriteLine($"Ingredient: {listOfIngredients[randomIngredient]}, piece: {randomPiece}");
+
+                randomIngredientsToRemember.Add(listOfIngredients[randomIngredient], randomPiece);
+                listOfIngredients.Remove(listOfIngredients[randomIngredient]);
+
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            SetTimer(timeInSeconds: 5);
+            return randomIngredientsToRemember;
+        }
+
+        public void DisplayIngredientsAsTable(List<string> listOfIngredients)
+        {
+            string displayMessage;
+
+            for (int numberOfElementsInLine = 0; numberOfElementsInLine < listOfIngredients.Count; numberOfElementsInLine++)
+            {
+                displayMessage = numberOfElementsInLine % 2 == 0 ?
+                                $"\n{listOfIngredients[numberOfElementsInLine]}\t\t" : $"{listOfIngredients[numberOfElementsInLine]}\t\t";
+
+                Console.WriteLine(displayMessage);
+            }
+        }
+
+        private void SetTimer(int timeInSeconds)
+        {
+            Console.WriteLine();
+
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine($"Game will start in {timeInSeconds - i}");
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            Console.Clear();
+        }
+
+        private List<string> FillTheListWithIngredients(List<string> ingredients)
+        {
+            ingredients = new List<string>
             {
                 "Cheese",
                 "Tomato",
@@ -24,56 +76,8 @@
                 "Olives",
                 "Pepper"
             };
-        }
 
-        public void DisplayIngredients()
-        {
-            for (int i = 0; i < this.Ingredients.Count; i++)
-            {
-                if (i % 2 == 0)
-                    Console.Write($"\n{this.Ingredients[i]}\t\t");
-                else
-                    Console.Write($"{this.Ingredients[i]}\t\t");
-            }
-        }
-
-        public Dictionary<string, int> RandomIngredients(int numberOfIngredientsToRemember)
-        {
-            Random rnd = new Random();
-            Dictionary<string, int> ingredientsToRemember = new Dictionary<string, int>();
-            List<string> copyListOfIngredients = new List<string>(this.Ingredients);
-            int randomIngredient;
-            int randomPiece;
-
-            for (int i = 0; i < numberOfIngredientsToRemember; i++)
-            {
-                randomIngredient = rnd.Next(0, copyListOfIngredients.Count);
-                randomPiece = rnd.Next(1, 5);
-
-                Console.WriteLine($"Ingredient: {copyListOfIngredients[randomIngredient]}, piece: {randomPiece}");
-                ingredientsToRemember.Add(copyListOfIngredients[randomIngredient], randomPiece);
-                copyListOfIngredients.Remove(copyListOfIngredients[randomIngredient]);
-
-                System.Threading.Thread.Sleep(1000);
-            }
-
-            SetTimer();
-            return ingredientsToRemember;
-        }
-
-        private void SetTimer()
-        {
-            int defaultTimer = 5;
-
-            Console.WriteLine();
-
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine($"Game will start in {defaultTimer - i}");
-                System.Threading.Thread.Sleep(1000);
-            }
-
-            Console.Clear();
+            return ingredients;
         }
     }
 }
