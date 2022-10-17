@@ -52,76 +52,23 @@
                         break;
                 }
             }
-        }
+        }     
 
         private void StartGame(int gameLvl = 1)
         {
-            OperationOfCollection ingredientsDefault = new OperationOfCollection();
-
             double userScore = 0;
+            int attemp;
 
             while (gameLvl <= 12)
-            {
-                Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
-                    RandomIngredients(this.validation.ValidationNumberToRemember(gameLvl));
+            {              
+                attemp = 1;
 
-                int attemp = 1;
-                string messageAfterLvl;
+                DisplayMessageBeforeLvl(lvl: gameLvl, score: userScore);
 
-                Console.WriteLine($"Current game level: {gameLvl}\t\t\tUser score: {userScore}\n");
-                Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity," +
-                                    " otherwise you won't get any points!\n");
-
-                while (ingredientsToRemember.Count != 0)
-                {
-                    Console.Write("Enter Ingredient: ");
-                    string userInputIngredients = Console.ReadLine();
-
-                    Console.Write("Enter number of pieces for ingredients: ");
-                    int numberOfPiecesForIngredients = Int32.Parse(Console.ReadLine());
-
-                    if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
-                        ingredientsToRemember[userInputIngredients] == numberOfPiecesForIngredients)
-                    {
-                        Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
-                                            $"have {numberOfPiecesForIngredients} pieces!\n");
-
-                        ingredientsToRemember.Remove(userInputIngredients);
-                    }
-                    else if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
-                        ingredientsToRemember[userInputIngredients] != numberOfPiecesForIngredients)
-                    {
-                        Console.WriteLine($"\nYou are mistaken! Ingredient: {userInputIngredients} " +
-                                            $"does not have {numberOfPiecesForIngredients} pieces!\n");
-
-                        attemp++;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\nWrong ingredient!\n");
-
-                        attemp++;
-                    }
-
-                    if (attemp == 5)
-                    {
-                        Console.WriteLine("You've run out of attempts!");
-
-                        break;
-                    }
-                }
-
-                Console.Clear();
+                attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, attemp: attemp);
                 userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
 
-                messageAfterLvl = attemp != 5 ? $"You have won level: {gameLvl}!" : $"You have lost level: {gameLvl}!";
-                Console.WriteLine(messageAfterLvl + $"\t\t\tCurrent score: {userScore}");
-
-                gameLvl++;
-
-                Console.WriteLine("\nPress any key to continue...");
-                Console.ReadKey();
-                Console.Clear();
+                DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
             }
 
             Console.WriteLine($"Game ended! Youre total score = {userScore}");
@@ -129,10 +76,73 @@
 
         public void ChoiceLevel()
         {
-            Console.WriteLine("Select level from 1 to 12.");
+            Console.WriteLine("Select level from 1 to 12: ");
             int choiseLevelUser = this.validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
             
             StartGame(choiseLevelUser);
+        }
+
+        private int CheckingTheIngredientAndItsQuantity(int lvl, int attemp)
+        {
+            OperationOfCollection ingredientsDefault = new OperationOfCollection();
+            Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
+                    RandomIngredients(this.validation.ValidationNumberToRemember(lvl));
+
+            while (ingredientsToRemember.Count != 0 && attemp != 5)
+            {
+                Console.Write("Enter Ingredient: ");
+                string userInputIngredients = this.validation.ValidationUserInputIngredients(Console.ReadLine());
+
+                Console.Write("Enter number of pieces for ingredients: ");
+                int userInputnumberOfPiecesForIngredients = this.validation.
+                    ValidationUserInputNumberOfPiecesForIngredients(Int32.Parse(Console.ReadLine()));
+
+                if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
+                    ingredientsToRemember[userInputIngredients] == userInputnumberOfPiecesForIngredients)
+                {
+                    Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
+                        $"have {userInputnumberOfPiecesForIngredients} pieces!\n");
+
+                    ingredientsToRemember.Remove(userInputIngredients);
+                }
+                else if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
+                    ingredientsToRemember[userInputIngredients] != userInputnumberOfPiecesForIngredients)
+                {
+                    Console.WriteLine($"\nYou are mistaken! Ingredient: {userInputIngredients} " +
+                        $"does not have {userInputnumberOfPiecesForIngredients} pieces!\n");
+
+                    attemp++;
+                }
+                else
+                {
+                    Console.WriteLine($"\nWrong ingredient!\n");
+
+                    attemp++;
+                }
+            }
+
+            Console.Clear();
+
+            return attemp;
+        }
+
+        private void DisplayMessageBeforeLvl(int lvl, double score)
+        {
+            Console.WriteLine($"Current game level: {lvl}\t\t\tUser score: {score}\n");
+            Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity, " +
+                "otherwise you won't get any points!\n");
+        }
+
+        private void DisplayMessageAfterLvl(int lvl, double score, int attemp)
+        {
+            string messageAfterLvl = attemp != 5 ? $"You have won level: {lvl}!" : $"You have lost level: {lvl}!";
+            Console.WriteLine(messageAfterLvl + $"\t\t\tCurrent score: {score}");
+
+            lvl++;
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         void AddToLeadboard(string userName, int record)

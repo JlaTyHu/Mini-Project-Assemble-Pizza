@@ -10,11 +10,10 @@
             Random rnd = new Random();
             Dictionary<string, int> randomIngredientsToRemember = new Dictionary<string, int>();
             List<string> listOfIngredients = new List<string>();
+            listOfIngredients = FillTheListWithIngredients(listOfIngredients);
 
             int randomIngredient;
             int randomPiece;
-
-            FillTheListWithIngredients(listOfIngredients);
 
             for (int i = 0; i < numberOfIngredientsToRemember; i++)
             {
