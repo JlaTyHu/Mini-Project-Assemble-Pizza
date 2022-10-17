@@ -28,8 +28,6 @@
 
         public void BeginOfGame()
         {
-
-
             Console.WriteLine("Lobby");
 
             bool error = true;
@@ -59,6 +57,7 @@
         private void StartGame(int gameLvl = 1)
         {
             OperationOfCollection ingredientsDefault = new OperationOfCollection();
+
             double userScore = 0;
 
             while (gameLvl <= 12)
@@ -70,7 +69,8 @@
                 string messageAfterLvl;
 
                 Console.WriteLine($"Current game level: {gameLvl}\t\t\tUser score: {userScore}\n");
-                Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity, otherwise you won't get any points!\n");
+                Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity," +
+                                    " otherwise you won't get any points!\n");
 
                 while (ingredientsToRemember.Count != 0)
                 {
@@ -84,7 +84,7 @@
                         ingredientsToRemember[userInputIngredients] == numberOfPiecesForIngredients)
                     {
                         Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
-                            $"have {numberOfPiecesForIngredients} pieces!\n");
+                                            $"have {numberOfPiecesForIngredients} pieces!\n");
 
                         ingredientsToRemember.Remove(userInputIngredients);
                     }
@@ -92,18 +92,21 @@
                         ingredientsToRemember[userInputIngredients] != numberOfPiecesForIngredients)
                     {
                         Console.WriteLine($"\nYou are mistaken! Ingredient: {userInputIngredients} " +
-                            $"does not have {numberOfPiecesForIngredients} pieces!\n");
+                                            $"does not have {numberOfPiecesForIngredients} pieces!\n");
+
                         attemp++;
                     }
                     else
                     {
                         Console.WriteLine($"\nWrong ingredient!\n");
+
                         attemp++;
                     }
 
                     if (attemp == 5)
                     {
                         Console.WriteLine("You've run out of attempts!");
+
                         break;
                     }
                 }
@@ -128,6 +131,7 @@
         {
             Console.WriteLine("Select level from 1 to 12.");
             int choiseLevelUser = this.validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
+            
             StartGame(choiseLevelUser);
         }
 
