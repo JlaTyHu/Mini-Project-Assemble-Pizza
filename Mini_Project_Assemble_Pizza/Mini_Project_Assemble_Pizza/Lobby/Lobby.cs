@@ -1,32 +1,33 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Lobby
 {
     using System;
-    using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.CollectionIngredients;
+    using System.Text.Json;
+    using System.IO;
+    using Mini_Project_Assemble_Pizza.Field;
     public class Lobby
     {
-      
-        Dictionary<string, int> people = new Dictionary<string, int>();
+       
         public void Registration()
         {
+
             Console.WriteLine("Registration");
 
             Console.WriteLine("Enter your name:");
 
             string userName = Console.ReadLine();
-
             Console.WriteLine("Enter your age:");
 
             int ageUser = Int32.Parse(Console.ReadLine());
 
+            int record = 0;
+
             Console.WriteLine(new string('-', 50));
 
+            InfoPerson infoPerson = new InfoPerson(userName, ageUser, record);
         }
-
         public void BeginOfGame()
         {
-
-
             Console.WriteLine("Lobby");
 
             bool error = true;
@@ -42,7 +43,8 @@
                     case 'y': 
                         error = false; 
                         break;
-                    case 't': 
+                    case 't':
+                        DisplayLeadboard();
                         error = false; 
                         break;
                     default: 
@@ -108,9 +110,17 @@
             }
         }
 
-        void AddToLeadboard(string userName, int record)
+        void SaveLeadboardToFile()
         {
-            people.Add(userName, record);
+            InfoPerson infoPerson = new InfoPerson(name, age, record);
+            string json = JsonSerializer.Serialize(infoPerson);
+            File.WriteAllText(@"E:\Leadboard.json", json);
+        }
+
+        void DisplayLeadboard()
+        {
+            string display = File.ReadAllText(@"E:\Leadboard.json");
+            Console.WriteLine(display);
         }
     }
 }
