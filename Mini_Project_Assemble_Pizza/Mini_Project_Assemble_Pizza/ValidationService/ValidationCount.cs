@@ -1,7 +1,6 @@
 ﻿namespace Mini_Project_Assemble_Pizza.ValidationService
 {
     using System;
-    using System.Collections.Generic;
 
     public class ValidationCount
     {
@@ -29,7 +28,8 @@
 
         public int ValidationUserInputNumberOfPiecesForIngredients(int userPieces)
         {
-            return userPieces = userPieces > 5 ? throw new Exception("The name cannot be empty or space!") : userPieces;
+            return userPieces = userPieces < 1 && userPieces > 5 ? 
+                throw new Exception("The number cannot be less than 1 or greater than 5!") : userPieces;
         }
     }
 }

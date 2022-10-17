@@ -63,9 +63,7 @@
             {              
                 attemp = 1;
 
-                DisplayMessageBeforeLvl(lvl: gameLvl, score: userScore);
-
-                attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, attemp: attemp);
+                attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, score: userScore, attemp: attemp);
                 userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
 
                 DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
@@ -82,7 +80,7 @@
             StartGame(choiseLevelUser);
         }
 
-        private int CheckingTheIngredientAndItsQuantity(int lvl, int attemp)
+        private int CheckingTheIngredientAndItsQuantity(int lvl, double score, int attemp)
         {
             OperationOfCollection ingredientsDefault = new OperationOfCollection();
             Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
@@ -90,6 +88,8 @@
 
             while (ingredientsToRemember.Count != 0 && attemp != 5)
             {
+                DisplayMessageBeforeLvl(lvl: lvl, score: score);
+
                 Console.Write("Enter Ingredient: ");
                 string userInputIngredients = this.validation.ValidationUserInputIngredients(Console.ReadLine());
 
