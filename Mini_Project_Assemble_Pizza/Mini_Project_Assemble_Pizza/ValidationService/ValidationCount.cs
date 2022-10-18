@@ -6,30 +6,48 @@
     {
         public int ValidationNumberToRemember(int count)
         {
-            return count = count <= 5 ? count : 5;
+            return count <= 5 ? count : 5;
         }
 
         public int ValidationUserChoiceLvl(int userChoiceLvl)
         {
-            return userChoiceLvl = (userChoiceLvl < 0 || userChoiceLvl > 13) ? 
-                throw new Exception("Level cannot be lower than 1 and higher than 12!"): userChoiceLvl;
+            while (userChoiceLvl < 0 || userChoiceLvl > 13)
+            {
+                Console.WriteLine("Level cannot be lower than 1 and higher than 12!");
+                Console.WriteLine("Try again: ");
+                userChoiceLvl = ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
+            }
+
+            return userChoiceLvl;
         }
 
         public double ValidationUserScore(double score, int lvl, int attemp)
         {
-            return score += lvl == 1 ? (10 / attemp) : ((10 + lvl) / attemp);
+            return lvl == 1 ? ((10 / attemp) + score ): (((10 + lvl) / attemp) + score);
         }
 
         public string ValidationUserInputIngredients(string userIngredient)
         {
-            return userIngredient = string.IsNullOrEmpty(userIngredient) || userIngredient.Contains(" ") ?
-                throw new Exception("The name cannot be empty or space!") : userIngredient;
+            while (string.IsNullOrEmpty(userIngredient) || userIngredient.Contains(" "))
+            {
+                Console.WriteLine("The name cannot be empty or space!");
+                Console.WriteLine("Try again: ");
+                userIngredient = ValidationUserInputIngredients(Console.ReadLine());
+            }
+
+            return userIngredient;
         }        
 
         public int ValidationUserInputNumberOfPiecesForIngredients(int userPieces)
         {
-            return userPieces = userPieces < 1 && userPieces > 5 ? 
-                throw new Exception("The number cannot be less than 1 or greater than 5!") : userPieces;
+            while (userPieces < 1 && userPieces > 5)
+            {
+                Console.WriteLine("The number cannot be less than 1 or greater than 5!");
+                Console.WriteLine("Try again: ");
+                userPieces = ValidationUserInputNumberOfPiecesForIngredients(Int32.Parse(Console.ReadLine()));
+            }
+
+            return userPieces;
         }
     }
 }

@@ -8,6 +8,7 @@
     public class Lobby
     {
         ValidationCount validation = new ValidationCount();
+        DisplayGameInformation display = new DisplayGameInformation();
 
         Dictionary<string, int> people = new Dictionary<string, int>();
         public void Registration()
@@ -54,24 +55,6 @@
             }
         }     
 
-        private void StartGame(int gameLvl = 1)
-        {
-            double userScore = 0;
-            int attemp;
-
-            while (gameLvl <= 12)
-            {              
-                attemp = 1;
-
-                attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, score: userScore, attemp: attemp);
-                userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
-
-                DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
-            }
-
-            Console.WriteLine($"Game ended! Youre total score = {userScore}");
-        }
-
         public void ChoiceLevel()
         {
             Console.WriteLine("Select level from 1 to 12: ");
@@ -80,16 +63,43 @@
             StartGame(choiseLevelUser);
         }
 
+        private void StartGame(int gameLvl)
+        {
+            double userScore = 0;
+            int attemp;
+
+            while (gameLvl <= 12)
+            {
+                attemp = 1;
+
+                attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, score: userScore, attemp: attemp);
+                userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
+
+                this.display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
+
+                gameLvl++;
+            }
+
+            Console.WriteLine($"Game ended! Youre total score = {userScore}");
+        }
+
         private int CheckingTheIngredientAndItsQuantity(int lvl, double score, int attemp)
         {
+            Console.Clear();
+            this.display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
+
+            this.display.PressAnyKeyToContinue();
+
             OperationOfCollection ingredientsDefault = new OperationOfCollection();
             Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
-                    RandomIngredients(this.validation.ValidationNumberToRemember(lvl));
+                    RandomIngredients(this.validation.ValidationNumberToRemember(count: lvl));
+
+            Console.WriteLine("");
+
+            this.display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
 
             while (ingredientsToRemember.Count != 0 && attemp != 5)
             {
-                DisplayMessageBeforeLvl(lvl: lvl, score: score);
-
                 Console.Write("Enter Ingredient: ");
                 string userInputIngredients = this.validation.ValidationUserInputIngredients(Console.ReadLine());
 
@@ -121,29 +131,8 @@
                 }
             }
 
-            Console.Clear();
-
             return attemp;
-        }
-
-        private void DisplayMessageBeforeLvl(int lvl, double score)
-        {
-            Console.WriteLine($"Current game level: {lvl}\t\t\tUser score: {score}\n");
-            Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity, " +
-                "otherwise you won't get any points!\n");
-        }
-
-        private void DisplayMessageAfterLvl(int lvl, double score, int attemp)
-        {
-            string messageAfterLvl = attemp != 5 ? $"You have won level: {lvl}!" : $"You have lost level: {lvl}!";
-            Console.WriteLine(messageAfterLvl + $"\t\t\tCurrent score: {score}");
-
-            lvl++;
-
-            Console.WriteLine("\nPress any key to continue...");
-            Console.ReadKey();
-            Console.Clear();
-        }
+        }       
 
         void AddToLeadboard(string userName, int record)
         {
