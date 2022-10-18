@@ -7,7 +7,7 @@
     {
         static void Main(string[] args)
         {
-            Lobby lobby = new Lobby();
+            GameLogic.GameLogic lobby = new GameLogic.GameLogic();
             lobby.ChoiceLevel();
         }      
     }
