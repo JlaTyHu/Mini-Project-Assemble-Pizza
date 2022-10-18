@@ -9,8 +9,7 @@
         {
             Random rnd = new Random();
             Dictionary<string, int> randomIngredientsToRemember = new Dictionary<string, int>();
-            List<string> listOfIngredients = new List<string>();
-            listOfIngredients = FillTheListWithIngredients(listOfIngredients);
+            List<string> listOfIngredients = FillTheListWithIngredients();
 
             int randomIngredient;
             int randomPiece;
@@ -29,6 +28,7 @@
             }
 
             SetTimer(timeInSeconds: 5);
+
             return randomIngredientsToRemember;
         }
 
@@ -58,9 +58,9 @@
             Console.Clear();
         }
 
-        private List<string> FillTheListWithIngredients(List<string> ingredients)
+        private List<string> FillTheListWithIngredients()
         {
-            ingredients = new List<string>
+            return new List<string>
             {
                 "Cheese",
                 "Tomato",
@@ -75,8 +75,6 @@
                 "Olives",
                 "Pepper"
             };
-
-            return ingredients;
         }
     }
 }
