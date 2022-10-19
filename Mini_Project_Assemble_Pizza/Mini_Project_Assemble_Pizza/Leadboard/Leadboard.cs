@@ -87,6 +87,17 @@
             }
 
         }
+
+        private static void OpenOrCreateFile()
+        {
+            using (FileStream fileStream = File.Open(pathLeadboard, FileMode.OpenOrCreate))
+            {
+                using (StreamWriter output = new StreamWriter(fileStream))
+                {
+                    output.Write("[]");
+                }
+            }
+        }
         public void MainLeadboard()
         {
             FillingList();
