@@ -9,10 +9,10 @@
     {
         List<InfoPerson> infoPersonList = new List<InfoPerson>();
         InfoPerson infoPerson = new InfoPerson();
-
+        const string pathLeadboard = @"leadboard.json";
         private void FillingList()
         {
-            string pathLeadboard = @"leadboard.json";
+            
 
             using (StreamReader leadboardRead = new StreamReader(pathLeadboard))
             {
@@ -78,6 +78,15 @@
             infoPersonList.Add(infoPerson);
         }
 
+        private void OwerwriteListFile()
+        {
+            foreach (var person in infoPersonList)
+            {
+                string a = System.Text.Json.JsonSerializer.Serialize(infoPersonList);
+                File.WriteAllText(pathLeadboard, a);
+            }
+
+        }
         public void MainLeadboard()
         {
             FillingList();
