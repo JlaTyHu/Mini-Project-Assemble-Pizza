@@ -5,12 +5,11 @@
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     public class Leadboard
     {
-         List<InfoPerson> infoPersonList = new List<InfoPerson>();
+        List<InfoPerson> infoPersonList = new List<InfoPerson>();
         InfoPerson infoPerson = new InfoPerson();
-       
+
         private void FillingList()
         {
             string pathLeadboard = @"leadboard.json";
@@ -59,11 +58,23 @@
             }
         }
 
-        private void AddIntoLeadboard(string name, int age, int score)
+        private void ChangeLeadboard(int record, string name, int age)
         {
-            infoPerson.Name = name;
-            infoPerson.Age = age;
-            infoPerson.Record = score;
+            foreach (var person1 in infoPersonList)
+            {
+                var resultOfCompareOfNames = person1.Name.CompareTo(name);
+                var resultOfCompareOfAge = person1.Age.CompareTo(age);
+
+                if (resultOfCompareOfNames == 0 && resultOfCompareOfAge == 0)
+                {
+                    person1.Record = record;
+                    break;
+                }
+            }
+        }
+
+        private void AddIntoLeadboard()
+        {
             infoPersonList.Add(infoPerson);
         }
 
@@ -75,3 +86,4 @@
         }
     }
 }
+
