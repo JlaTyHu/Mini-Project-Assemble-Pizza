@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.CollectionIngredients;
     using Mini_Project_Assemble_Pizza.ValidationService;
+
     public class Game
     {
         ValidationCount validation = new ValidationCount();
@@ -30,6 +31,11 @@
 
                 this.display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
 
+                if (!this.display.DisplayUserChoiceStayOrExit())
+                {
+                    break;
+                }
+
                 gameLvl++;
             }
 
@@ -38,10 +44,11 @@
 
         private int CheckingTheIngredientAndItsQuantity(int lvl, double score, int attemp)
         {
+            string userInputIngredients = "";
+
             Console.Clear();
             this.display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
-
-            this.display.PressAnyKeyToContinue();
+            this.display.DisplayGamePause();
 
             OperationOfCollection ingredientsDefault = new OperationOfCollection();
             Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
@@ -54,7 +61,7 @@
             while (ingredientsToRemember.Count != 0 && attemp != 5)
             {
                 Console.Write("Enter Ingredient: ");
-                string userInputIngredients = this.validation.ValidationUserInputIngredients(Console.ReadLine());
+                userInputIngredients = this.validation.ValidationUserInputIngredients(Console.ReadLine());
 
                 Console.Write("Enter number of pieces for ingredients: ");
                 int userInputnumberOfPiecesForIngredients = this.validation.

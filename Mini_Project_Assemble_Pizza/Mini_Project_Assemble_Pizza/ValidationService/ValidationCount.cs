@@ -49,5 +49,16 @@
 
             return userPieces;
         }
+
+        public string ValidationUserInputChoiseStayOrExit(string userInputChoice)
+        {
+            while (!userInputChoice.Contains("yes") && !userInputChoice.Contains("no"))
+            {
+                Console.WriteLine("Uncorrect input! Try again: [continue] playing or [exit]?");
+                userInputChoice = Console.ReadLine(); ;
+            }
+
+            return userInputChoice;
+        }
     }
 }
