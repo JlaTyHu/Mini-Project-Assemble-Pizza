@@ -7,8 +7,8 @@
     {
         static void Main(string[] args)
         {
-            GameLogic.GameLogic lobby = new GameLogic.GameLogic();
-            lobby.ChoiceLevel();
+            Game game = new Game();
+            game.ChoiceLevel();
         }      
     }
 }
