@@ -88,7 +88,7 @@
 
         }
 
-        private static void OpenOrCreateFile()
+        private static void CreateFileForLeadboard()
         {
             using (FileStream fileStream = File.Open(pathLeadboard, FileMode.OpenOrCreate))
             {
@@ -96,6 +96,18 @@
                 {
                     output.Write("[]");
                 }
+            }
+        }
+
+        private static void FileExistenceCheck()
+        {
+            if (File.Exists(@"pathLeadboard.json"))
+            {
+
+            }
+            else
+            {
+                CreateFileForLeadboard();
             }
         }
         public void MainLeadboard()
