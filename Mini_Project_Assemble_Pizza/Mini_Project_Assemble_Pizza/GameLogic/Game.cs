@@ -6,6 +6,7 @@
     using Mini_Project_Assemble_Pizza.ValidationService;
     using Mini_Project_Assemble_Pizza.FieldInfoPerson;
     using Mini_Project_Assemble_Pizza.Learboard;
+    using Mini_Project_Assemble_Pizza.Lobby;
 
     public class Game
     {    
@@ -23,6 +24,7 @@
             LeadboardGame leadboard = new LeadboardGame();
             ValidationCount validation = new ValidationCount();
             DisplayGameInformation display = new DisplayGameInformation();
+            LobbyGame lobbyGame = new LobbyGame();
 
             double userScore = 0;
             int attemp;
@@ -36,12 +38,11 @@
                 infoPerson.UserScore = userScore;
 
                 display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
-
-                
-
+              
                 if (!display.DisplayUserChoiceStayOrExit())
                 {
                     leadboard.SavingleadboardAfterGame(infoPerson);
+                    lobbyGame.BeginOfGame(infoPerson);
                     break;
                 }
                 
