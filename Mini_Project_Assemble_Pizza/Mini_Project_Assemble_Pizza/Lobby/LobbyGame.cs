@@ -36,24 +36,32 @@
 
             Console.WriteLine("Lobby");
 
-            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
-            string userInputChoice = Console.ReadLine();
-
+            wrongInput: Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
             var userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
 
             switch (userInputChoice)
-                case 'y' : game.ChoiceLevel(infoPerson); 
+            {
+                case 'y':
+                    game.ChoiceLevel(infoPerson);
+
                     break;
+
                 case 't':
                     Console.Clear();
+
                     LeadboardGame leadboard = new LeadboardGame();
+
                     leadboard.MainLeadboard();
                     BackToLobby(infoPerson);
+
                     break;
+
                 case 'x': break;
-                default: Console.WriteLine("There is no such option!");  
-                    break;
-                BackToLobby(infoPerson);
+
+                default:
+                    Console.WriteLine("There is no such option!");
+
+                    goto wrongInput;
             }
         }
 

@@ -58,7 +58,7 @@
         {
             ValidationCount validation = new ValidationCount();
             DisplayGameInformation display = new DisplayGameInformation();
-            string userInputIngredients;
+            const int DEFAULT_ATTEMP_SCORE = 5;
 
             Console.Clear();
             display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
@@ -72,10 +72,10 @@
 
             display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
 
-            while (ingredientsToRemember.Count != 0 && attemp >= 1 && attemp < 5)
+            while (ingredientsToRemember.Count != 0 && attemp >= 1 && attemp < 6)
             {
                 Console.Write("Enter Ingredient: ");
-                userInputIngredients = validation.ValidationUserInputIngredients(Console.ReadLine());
+                string userInputIngredients = validation.ValidationUserInputIngredients(Console.ReadLine());
 
                 Console.Write("Enter number of pieces for ingredients: ");
                 int userInputnumberOfPiecesForIngredients = validation.ValidationUserInputNumberOfPiecesForIngredients(Int32.Parse(Console.ReadLine()));
@@ -87,7 +87,7 @@
                 {
                     case true:
                         Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
-                            $"have {userInputnumberOfPiecesForIngredients} pieces!\n");
+                            $"have {ingredientsToRemember[userInputIngredients]} pieces!\n");
 
                         ingredientsToRemember.Remove(userInputIngredients);
                         
@@ -95,6 +95,7 @@
 
                     default:
                         Console.WriteLine($"\nInput Error! You didn't guess the ingredient or quantity!\n");
+                        Console.WriteLine($"You have {DEFAULT_ATTEMP_SCORE - attemp} attempts left");
 
                         attemp++;
 
