@@ -1,28 +1,27 @@
-﻿namespace Mini_Project_Assemble_Pizza
+﻿namespace Mini_Project_Assemble_Pizza.Learboard
 {
     using System.IO;
     using Mini_Project_Assemble_Pizza.FieldInfoPerson;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    public class Leadboard
+    public class LeadboardGame
     {
         List<InfoPerson> infoPersonList = new List<InfoPerson>();
-        InfoPerson infoPerson = new InfoPerson();
-        const string pathLeadboard = @"leadboard.json";
+        
+        const string pathLeadboard = @"C:\Users\Дарина\Source\Repos\JlaTyHu\Mini-Project-Assemble-Pizza\Mini_Project_Assemble_Pizza\Mini_Project_Assemble_Pizza\bin\Debug\net5.0\DataLeadboard\leadboard.json";
         private void FillingList()
         {
-            
-
             using (StreamReader leadboardRead = new StreamReader(pathLeadboard))
             {
                 string jsonLeadboard = leadboardRead.ReadToEnd();
                 infoPersonList = JsonConvert.DeserializeObject<List<InfoPerson>>(jsonLeadboard);
             }
         }
+
         private void SortingList()
         {
-            int person;
+            double userScore;
             int age;
             string name;
 
@@ -30,13 +29,13 @@
             {
                 foreach (var person2 in infoPersonList)
                 {
-                    var resultOfCompare = person1.Record.CompareTo(person2.Record);
+                    var resultOfCompare = person1.UserScore.CompareTo(person2.UserScore);
 
                     if (resultOfCompare == 1)
                     {
-                        person = person1.Record;
-                        person1.Record = person2.Record;
-                        person2.Record = person;
+                        userScore = person1.UserScore;
+                        person1.UserScore = person2.UserScore;
+                        person2.UserScore = userScore;
 
                         age = person1.Age;
                         person1.Age = person2.Age;
@@ -54,41 +53,37 @@
         {
             foreach (var person in infoPersonList)
             {
-                Console.WriteLine($"{person.Name} \t {person.Age} \t {person.Record}");
+                Console.WriteLine($"{person.Name} \t {person.Age} \t {person.UserScore}");
             }
         }
 
-        private void ChangeLeadboard(int record, string name, int age)
+        public void ChangeLeadboard(InfoPerson infoPerson)
         {
             foreach (var person1 in infoPersonList)
             {
-                var resultOfCompareOfNames = person1.Name.CompareTo(name);
-                var resultOfCompareOfAge = person1.Age.CompareTo(age);
+                var resultOfCompareOfNames = person1.Name.CompareTo(infoPerson.Name);
+                var resultOfCompareOfAge = person1.Age.CompareTo(infoPerson.Age);
 
                 if (resultOfCompareOfNames == 0 && resultOfCompareOfAge == 0)
                 {
-                    person1.Record = record;
+                    person1.UserScore = 0;
                     break;
                 }
             }
         }
 
-        private void AddIntoLeadboard()
+        private void AddIntoLeadboard(InfoPerson infoPerson)
         {
             infoPersonList.Add(infoPerson);
         }
 
         private void OwerwriteListFile()
         {
-            foreach (var person in infoPersonList)
-            {
-                string a = System.Text.Json.JsonSerializer.Serialize(infoPersonList);
-                File.WriteAllText(pathLeadboard, a);
-            }
-
+            string owerWriting = System.Text.Json.JsonSerializer.Serialize(infoPersonList);
+            File.WriteAllText(pathLeadboard, owerWriting);
         }
 
-        private static void CreateFileForLeadboard()
+        private void CreateFileForLeadboard()
         {
             using (FileStream fileStream = File.Open(pathLeadboard, FileMode.OpenOrCreate))
             {
@@ -99,22 +94,27 @@
             }
         }
 
-        private static void FileExistenceCheck()
+        private void FileExistenceCheck()
         {
-            if (File.Exists(@"pathLeadboard.json"))
-            {
-
-            }
-            else
+            if (!File.Exists(pathLeadboard))
             {
                 CreateFileForLeadboard();
             }
         }
+
         public void MainLeadboard()
         {
             FillingList();
             SortingList();
             DisplayList();
+        }
+
+        public void SavingleadboardAfterGame(InfoPerson infoPerson)
+        {
+            FileExistenceCheck();
+            FillingList();
+            AddIntoLeadboard(infoPerson);
+            OwerwriteListFile();
         }
     }
 }

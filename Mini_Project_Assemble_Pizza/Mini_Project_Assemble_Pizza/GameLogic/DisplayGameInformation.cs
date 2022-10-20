@@ -2,6 +2,7 @@
 {
     using System;
     using Mini_Project_Assemble_Pizza.ValidationService;
+    using Mini_Project_Assemble_Pizza.Learboard;
 
     public class DisplayGameInformation
     {
@@ -31,10 +32,11 @@
 
         public bool DisplayUserChoiceStayOrExit()
         {
+            LeadboardGame leadboard = new LeadboardGame();
             Console.WriteLine("Do you want continue playing or no? (yes / no)");
             string userInputChoice = this.validation.ValidationUserInputChoiseStayOrExit(Console.ReadLine());
 
-            return userInputChoice.Contains("yes") ? true : false;
+            return userInputChoice.Contains("yes") ? true : false ;
         }
     }
 }
