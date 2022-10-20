@@ -33,7 +33,7 @@
 
             Console.WriteLine("Lobby");
 
-            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t)");
+            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
 
             var userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
 
@@ -47,6 +47,7 @@
                     leadboard.MainLeadboard();
                     BackToLobby(infoPerson);
                     break;
+                case 'x': break;
                 default: Console.WriteLine("There is no such option!");  
                     break;
             }
