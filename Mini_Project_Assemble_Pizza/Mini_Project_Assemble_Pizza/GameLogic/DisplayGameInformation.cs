@@ -31,7 +31,7 @@
 
         public bool DisplayUserChoiceStayOrExit()
         {
-            Console.WriteLine("Do you want continue playing or no? (yes / no)");
+            Console.WriteLine("Do you want to continue playing or no? (yes / no)");
             string userInputChoice = this.validation.ValidationUserInputChoiseStayOrExit(Console.ReadLine());
 
             return userInputChoice.Contains("yes") ? true : false;
