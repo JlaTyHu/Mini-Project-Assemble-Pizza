@@ -28,23 +28,27 @@
         private void BeginOfGame(InfoPerson infoPerson)
         {
             Console.Clear();
+
             Game game = new Game();
 
             Console.WriteLine("Lobby");
 
             Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t)");
-            string userInputChoice = Console.ReadLine();
+
+            var userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
 
             switch (userInputChoice)
             {
-                case "y": game.ChoiceLevel(infoPerson); break;
-
-            else if (userChoice == 't')
-            {
-                Console.Clear();
-                LeadboardGame leadboard = new LeadboardGame();
-                leadboard.MainLeadboard();
-                BackToLobby(infoPerson);
+                case 'y' : game.ChoiceLevel(infoPerson); 
+                    break;
+                case 't':
+                    Console.Clear();
+                    LeadboardGame leadboard = new LeadboardGame();
+                    leadboard.MainLeadboard();
+                    BackToLobby(infoPerson);
+                    break;
+                default: Console.WriteLine("There is no such option!");  
+                    break;
             }
         }
 
@@ -52,11 +56,12 @@
         {
             Console.WriteLine("<= Back (Press b)");
 
-            char back = Char.Parse(Console.ReadLine());
+            var userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
 
-            switch(back)
+            switch (userInputChoice)
             {
-                case 'b': BeginOfGame(infoPerson);  break;
+                case 'b': BeginOfGame(infoPerson);  
+                    break;
                 default: Console.WriteLine("There is no such option!");
                     break;
             }

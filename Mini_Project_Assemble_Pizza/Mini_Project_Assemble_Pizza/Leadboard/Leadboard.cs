@@ -69,6 +69,7 @@
 
         private void DisplayList()
         {
+            Console.WriteLine("Name: \t Age: \t Score:");
             foreach (var person in this.infoPersonList)
             {
                 Console.WriteLine($"{person.Name} \t {person.Age} \t {person.UserScore}");

@@ -54,7 +54,7 @@
         {
             while (!userInputChoice.Contains("yes") && !userInputChoice.Contains("no"))
             {
-                Console.WriteLine("Uncorrect input! Try again: [continue] playing or [exit]?");
+                Console.WriteLine("Uncorrect input! Try again: [yes] or [no]?");
                 userInputChoice = Console.ReadLine(); ;
             }
 
@@ -63,7 +63,7 @@
 
         public int ValidationUserInputAge(int userAge)
         {
-            while (!(userAge <= 1 && userAge <= 100))
+            while (userAge <= 1 && userAge <= 100)
             {
                 Console.WriteLine("Uncorrect age! Try again.");
                 userAge = Int32.Parse(Console.ReadLine());
