@@ -25,7 +25,7 @@
             BeginOfGame(infoPerson);
         }
 
-        private void BeginOfGame(InfoPerson infoPerson)
+        public void BeginOfGame(InfoPerson infoPerson)
         {
             Console.Clear();
 
