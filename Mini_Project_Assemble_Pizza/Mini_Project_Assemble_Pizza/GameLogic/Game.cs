@@ -52,6 +52,8 @@
             Console.WriteLine($"Game ended! Youre total score = {userScore}");
         }
 
+
+
         private int CheckingTheIngredientAndItsQuantity(int lvl, double score, int attemp)
         {
             ValidationCount validation = new ValidationCount();

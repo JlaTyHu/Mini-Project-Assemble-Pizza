@@ -39,12 +39,26 @@
             {
                 case "y": game.ChoiceLevel(infoPerson); break;
 
-                case "t":
-                    LeadboardGame leadboard = new LeadboardGame();
-                    leadboard.MainLeadboard();
-                    break;
+            else if (userChoice == 't')
+            {
+                Console.Clear();
+                LeadboardGame leadboard = new LeadboardGame();
+                leadboard.MainLeadboard();
+                BackToLobby(infoPerson);
+            }
+        }
 
-                default: break;
+        private void BackToLobby(InfoPerson infoPerson)
+        {
+            Console.WriteLine("<= Back (Press b)");
+
+            char back = Char.Parse(Console.ReadLine());
+
+            switch(back)
+            {
+                case 'b': BeginOfGame(infoPerson);  break;
+                default: Console.WriteLine("There is no such option!");
+                    break;
             }
         }
     }
