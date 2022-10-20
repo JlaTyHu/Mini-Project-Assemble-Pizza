@@ -4,18 +4,24 @@
     using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.CollectionIngredients;
     using Mini_Project_Assemble_Pizza.ValidationService;
+    using Mini_Project_Assemble_Pizza.FieldInfoPerson;
+    using Mini_Project_Assemble_Pizza.Learboard;
 
     public class Game
     {
-        public void ChoiceLevel()
+        ValidationCount validation = new ValidationCount();
+        DisplayGameInformation display = new DisplayGameInformation();
+        
+        public void ChoiceLevel(InfoPerson infoPerson)
         {
             Console.WriteLine("Select level from 1 to 12.");
             int choiseLevelUser = this.validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
-            StartGame(choiseLevelUser);
+            StartGame(infoPerson, choiseLevelUser);
         }
 
-        private void StartGame(int gameLvl)
+        private void StartGame(InfoPerson infoPerson, int gameLvl)
         {
+            LeadboardGame leadboard = new LeadboardGame();
             ValidationCount validation = new ValidationCount();
             DisplayGameInformation display = new DisplayGameInformation();
 
@@ -27,15 +33,18 @@
                 attemp = 1;
 
                 attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, score: userScore, attemp: attemp);
-                userScore = validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
+                userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
+                infoPerson.UserScore = userScore;
 
                 display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
 
-                if (!display.DisplayUserChoiceStayOrExit())
+                leadboard.SavingleadboardAfterGame(infoPerson);
+
+                if (!this.display.DisplayUserChoiceStayOrExit())
                 {
                     break;
                 }
-
+                
                 gameLvl++;
             }
 
@@ -92,5 +101,7 @@
 
             return attemp;
         }
+
+
     }
 }

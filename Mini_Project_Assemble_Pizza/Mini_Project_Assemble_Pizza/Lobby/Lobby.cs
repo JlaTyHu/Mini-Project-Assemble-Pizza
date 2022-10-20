@@ -1,43 +1,45 @@
-﻿using System;
-using Mini_Project_Assemble_Pizza.FieldInfoPerson;
-
-namespace Mini_Project_Assemble_Pizza.Lobby
+﻿namespace Mini_Project_Assemble_Pizza.Lobby
 {
-     class Lobby
+    using System;
+    using Mini_Project_Assemble_Pizza.FieldInfoPerson;
+    using Mini_Project_Assemble_Pizza.GameLogic;
+    using Mini_Project_Assemble_Pizza.Learboard;
+    public class LobbyGame
     {
-        InfoPerson infoPerson = new InfoPerson();
-        void Registration()
+        public void Registration()
         {
-            
             Console.WriteLine("Registration");
 
             Console.WriteLine("Enter your name:");
 
-            infoPerson.Name = Console.ReadLine();
+            string name = Console.ReadLine();
 
             Console.WriteLine("Enter your age:");
 
-            infoPerson.Age = Int32.Parse(Console.ReadLine());
+            int age = Int32.Parse(Console.ReadLine());
+            InfoPerson infoPerson = new InfoPerson(name, age, 0);
+            BeginOfGame(infoPerson);
         }
 
-        void BeginOfGame()
+        private void BeginOfGame(InfoPerson infoPerson)
         {
+            Game game = new Game();
             Console.WriteLine("Lobby");
 
             Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t)");
 
             char userChoice = Char.Parse(Console.ReadLine());
-            
+
             if (userChoice == 'y')
             {
-                
+                game.ChoiceLevel(infoPerson);
             }
 
-            else if( userChoice == 't')
+            else if (userChoice == 't')
             {
-                Leadboard leadboard = new Leadboard();
+                LeadboardGame leadboard = new LeadboardGame();
                 leadboard.MainLeadboard();
             }
         }
-     }
+    }
 }

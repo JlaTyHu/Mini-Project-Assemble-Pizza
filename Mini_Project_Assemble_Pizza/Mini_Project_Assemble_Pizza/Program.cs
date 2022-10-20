@@ -1,14 +1,12 @@
 ﻿namespace Mini_Project_Assemble_Pizza
 {
-    using System;
-    using Mini_Project_Assemble_Pizza.GameLogic;
-
+    using Mini_Project_Assemble_Pizza.Lobby;
     public class Program
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.ChoiceLevel();
+            LobbyGame lobby = new LobbyGame();
+            lobby.Registration();
         }      
     }
 }
