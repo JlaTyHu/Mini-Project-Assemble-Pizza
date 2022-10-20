@@ -60,5 +60,16 @@
 
             return userInputChoice;
         }
+
+        public int ValidationUserInputAge(int userAge)
+        {
+            while (!(userAge <= 1 && userAge <= 100))
+            {
+                Console.WriteLine("Uncorrect age! Try again.");
+                userAge = Int32.Parse(Console.ReadLine());
+            }
+
+            return userAge;
+        }
     }
 }

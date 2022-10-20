@@ -4,21 +4,24 @@
     using Mini_Project_Assemble_Pizza.FieldInfoPerson;
     using Mini_Project_Assemble_Pizza.GameLogic;
     using Mini_Project_Assemble_Pizza.Learboard;
+    using Mini_Project_Assemble_Pizza.ValidationService;
 
     public class LobbyGame
     {
         public void Registration()
         {
-            const int DEFAULT_VALUE = 0;
+            ValidationCount validation = new ValidationCount();
+            const int DEFAULT_USER_SCORE_VALUE = 0;
+
             Console.WriteLine("Registration");
 
             Console.WriteLine("Enter your name:");
-            string userInputName = Console.ReadLine();
+            string userInputName = validation.ValidationUserInputIngredients(Console.ReadLine());
 
             Console.WriteLine("Enter your age:");
-            int userInputAge = Int32.Parse(Console.ReadLine());
+            int userInputAge = validation.ValidationUserInputAge(Int32.Parse(Console.ReadLine()));
 
-            InfoPerson infoPerson = new InfoPerson(userInputName, userInputAge, DEFAULT_VALUE);
+            InfoPerson infoPerson = new InfoPerson(userInputName, userInputAge, DEFAULT_USER_SCORE_VALUE);
             BeginOfGame(infoPerson);
         }
 
