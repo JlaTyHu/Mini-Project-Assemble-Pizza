@@ -22,6 +22,9 @@
         private void StartGame(InfoPerson infoPerson, int gameLvl)
         {
             LeadboardGame leadboard = new LeadboardGame();
+            ValidationCount validation = new ValidationCount();
+            DisplayGameInformation display = new DisplayGameInformation();
+
             double userScore = 0;
             int attemp;
 
@@ -33,7 +36,7 @@
                 userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
                 infoPerson.UserScore = userScore;
 
-                this.display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
+                display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
 
                 leadboard.SavingleadboardAfterGame(infoPerson);
 
@@ -50,51 +53,50 @@
 
         private int CheckingTheIngredientAndItsQuantity(int lvl, double score, int attemp)
         {
-            string userInputIngredients = "";
+            ValidationCount validation = new ValidationCount();
+            DisplayGameInformation display = new DisplayGameInformation();
+            string userInputIngredients;
 
             Console.Clear();
-            this.display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
-            this.display.DisplayGamePause();
+            display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
+            display.DisplayGamePause();
 
             OperationOfCollection ingredientsDefault = new OperationOfCollection();
             Dictionary<string, int> ingredientsToRemember = ingredientsDefault.
-                    RandomIngredients(this.validation.ValidationNumberToRemember(count: lvl));
+                    RandomIngredients(validation.ValidationNumberToRemember(count: lvl));
 
             Console.WriteLine("");
 
-            this.display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
+            display.DisplayMessageBeforeLvl(lvl: lvl, score: score);
 
-            while (ingredientsToRemember.Count != 0 && attemp != 5)
+            while (ingredientsToRemember.Count != 0 && attemp >= 1 && attemp < 5)
             {
                 Console.Write("Enter Ingredient: ");
-                userInputIngredients = this.validation.ValidationUserInputIngredients(Console.ReadLine());
+                userInputIngredients = validation.ValidationUserInputIngredients(Console.ReadLine());
 
                 Console.Write("Enter number of pieces for ingredients: ");
-                int userInputnumberOfPiecesForIngredients = this.validation.
-                    ValidationUserInputNumberOfPiecesForIngredients(Int32.Parse(Console.ReadLine()));
+                int userInputnumberOfPiecesForIngredients = validation.ValidationUserInputNumberOfPiecesForIngredients(Int32.Parse(Console.ReadLine()));
 
-                if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
-                    ingredientsToRemember[userInputIngredients] == userInputnumberOfPiecesForIngredients)
+                bool chekUserInputs = (ingredientsToRemember.ContainsKey(userInputIngredients)) &&
+                    (ingredientsToRemember[userInputIngredients] == userInputnumberOfPiecesForIngredients);
+
+                switch (chekUserInputs)
                 {
-                    Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
-                        $"have {userInputnumberOfPiecesForIngredients} pieces!\n");
+                    case true:
+                        Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} " +
+                            $"have {userInputnumberOfPiecesForIngredients} pieces!\n");
 
-                    ingredientsToRemember.Remove(userInputIngredients);
-                }
-                else if (ingredientsToRemember.ContainsKey(userInputIngredients) &&
-                    ingredientsToRemember[userInputIngredients] != userInputnumberOfPiecesForIngredients)
-                {
-                    Console.WriteLine($"\nYou are mistaken! Ingredient: {userInputIngredients} " +
-                        $"does not have {userInputnumberOfPiecesForIngredients} pieces!\n");
+                        ingredientsToRemember.Remove(userInputIngredients);
+                        
+                        break;
 
-                    attemp++;
-                }
-                else
-                {
-                    Console.WriteLine($"\nWrong ingredient!\n");
+                    default:
+                        Console.WriteLine($"\nInput Error! You didn't guess the ingredient or quantity!\n");
 
-                    attemp++;
-                }
+                        attemp++;
+
+                        break;
+                }               
             }
 
             return attemp;
