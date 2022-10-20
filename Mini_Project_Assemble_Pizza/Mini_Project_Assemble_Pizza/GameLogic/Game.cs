@@ -37,10 +37,11 @@
 
                 display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
 
-                leadboard.SavingleadboardAfterGame(infoPerson);
+                
 
                 if (!display.DisplayUserChoiceStayOrExit())
                 {
+                    leadboard.SavingleadboardAfterGame(infoPerson);
                     break;
                 }
                 
