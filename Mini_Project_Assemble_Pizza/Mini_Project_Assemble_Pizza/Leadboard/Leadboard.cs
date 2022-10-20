@@ -9,7 +9,7 @@
     {
         List<InfoPerson> infoPersonList = new List<InfoPerson>();
         
-        const string pathLeadboard = @"C:\Users\Дарина\Source\Repos\JlaTyHu\Mini-Project-Assemble-Pizza\Mini_Project_Assemble_Pizza\Mini_Project_Assemble_Pizza\bin\Debug\net5.0\DataLeadboard\leadboard.json";
+        const string pathLeadboard = @"DataLeadboard\leadboard.json";
         private void FillingList()
         {
             using (StreamReader leadboardRead = new StreamReader(pathLeadboard))

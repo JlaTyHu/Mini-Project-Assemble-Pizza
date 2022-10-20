@@ -32,7 +32,6 @@
 
         public bool DisplayUserChoiceStayOrExit()
         {
-            LeadboardGame leadboard = new LeadboardGame();
             Console.WriteLine("Do you want continue playing or no? (yes / no)");
             string userInputChoice = this.validation.ValidationUserInputChoiseStayOrExit(Console.ReadLine());
 
