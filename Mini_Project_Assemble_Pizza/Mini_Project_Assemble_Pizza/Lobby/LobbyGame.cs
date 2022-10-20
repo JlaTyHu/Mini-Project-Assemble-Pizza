@@ -23,6 +23,9 @@
 
             InfoPerson infoPerson = new InfoPerson(userInputName, userInputAge, DEFAULT_USER_SCORE_VALUE);
             BeginOfGame(infoPerson);
+
+            LeadboardGame leadboardGame = new LeadboardGame();
+            leadboardGame.ChangeLeadboard(infoPerson);
         }
 
         public void BeginOfGame(InfoPerson infoPerson)
@@ -33,14 +36,13 @@
 
             Console.WriteLine("Lobby");
 
-            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t)");
+            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
+            string userInputChoice = Console.ReadLine();
 
             var userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
 
             switch (userInputChoice)
-            {
-                case 'y':
-                    game.ChoiceLevel(infoPerson);
+                case 'y' : game.ChoiceLevel(infoPerson); 
                     break;
                 case 't':
                     Console.Clear();
@@ -48,9 +50,10 @@
                     leadboard.MainLeadboard();
                     BackToLobby(infoPerson);
                     break;
-                default:
-                    Console.WriteLine("There is no such option!");
+                case 'x': break;
+                default: Console.WriteLine("There is no such option!");  
                     break;
+                BackToLobby(infoPerson);
             }
         }
 
@@ -58,11 +61,12 @@
         {
             Console.WriteLine("<= Back (Press b)");
 
-            char back = Char.Parse(Console.ReadLine());
+            var userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
 
-            switch(back)
+            switch (userInputChoice)
             {
-                case 'b': BeginOfGame(infoPerson);  break;
+                case 'b': BeginOfGame(infoPerson);  
+                    break;
                 default: Console.WriteLine("There is no such option!");
                     break;
             }

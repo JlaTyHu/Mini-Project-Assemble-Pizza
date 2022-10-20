@@ -54,7 +54,7 @@
         {
             while (!userInputChoice.Contains("yes") && !userInputChoice.Contains("no"))
             {
-                Console.WriteLine("Uncorrect input! Try again: [continue] playing or [exit]?");
+                Console.WriteLine("Uncorrect input! Try again: [yes] or [no]?");
                 userInputChoice = Console.ReadLine(); ;
             }
 

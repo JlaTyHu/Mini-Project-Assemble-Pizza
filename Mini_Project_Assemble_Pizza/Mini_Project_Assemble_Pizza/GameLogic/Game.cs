@@ -14,7 +14,7 @@
         {
             ValidationCount validation = new ValidationCount();
 
-            Console.WriteLine("Select level from 1 to 12.");
+            Console.WriteLine("\nSelect level from 1 to 12.");
             int choiseLevelUser = validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
             StartGame(infoPerson, choiseLevelUser);
         }
