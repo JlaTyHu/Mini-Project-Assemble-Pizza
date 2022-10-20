@@ -5,17 +5,35 @@
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+
     public class LeadboardGame
     {
         List<InfoPerson> infoPersonList = new List<InfoPerson>();
         
-        const string pathLeadboard = @"leadboard.json";
+        private const string PATH_LEADBOARD_LIST = @"leadboard.json";
+
+        public void MainLeadboard()
+        {
+            FileExistenceCheck();
+            FillingList();
+            SortingList();
+            DisplayList();
+        }
+
+        public void SavingleadboardAfterGame(InfoPerson infoPerson)
+        {
+            FileExistenceCheck();
+            FillingList();
+            AddIntoLeadboard(infoPerson);
+            OwerwriteListFile();
+        }
+
         private void FillingList()
         {
-            using (StreamReader leadboardRead = new StreamReader(pathLeadboard))
+            using (StreamReader leadboardRead = new StreamReader(PATH_LEADBOARD_LIST))
             {
                 string jsonLeadboard = leadboardRead.ReadToEnd();
-                infoPersonList = JsonConvert.DeserializeObject<List<InfoPerson>>(jsonLeadboard);
+                this.infoPersonList = JsonConvert.DeserializeObject<List<InfoPerson>>(jsonLeadboard);
             }
         }
 
@@ -25,9 +43,9 @@
             int age;
             string name;
 
-            foreach (var person1 in infoPersonList)
+            foreach (var person1 in this.infoPersonList)
             {
-                foreach (var person2 in infoPersonList)
+                foreach (var person2 in this.infoPersonList)
                 {
                     var resultOfCompare = person1.UserScore.CompareTo(person2.UserScore);
 
@@ -51,25 +69,26 @@
 
         private void DisplayList()
         {
-            foreach (var person in infoPersonList)
+            foreach (var person in this.infoPersonList)
             {
                 Console.WriteLine($"{person.Name} \t {person.Age} \t {person.UserScore}");
             }
         }
+
         private void AddIntoLeadboard(InfoPerson infoPerson)
         {
-            infoPersonList.Add(infoPerson);
+            this.infoPersonList.Add(infoPerson);
         }
 
         private void OwerwriteListFile()
         {
-            string owerWriting = System.Text.Json.JsonSerializer.Serialize(infoPersonList);
-            File.WriteAllText(pathLeadboard, owerWriting);
+            string owerWriting = System.Text.Json.JsonSerializer.Serialize(this.infoPersonList);
+            File.WriteAllText(PATH_LEADBOARD_LIST, owerWriting);
         }
 
         private void CreateFileForLeadboard()
         {
-            using (FileStream fileStream = File.Open(pathLeadboard, FileMode.OpenOrCreate))
+            using (FileStream fileStream = File.Open(PATH_LEADBOARD_LIST, FileMode.OpenOrCreate))
             {
                 using (StreamWriter output = new StreamWriter(fileStream))
                 {
@@ -80,27 +99,11 @@
 
         private void FileExistenceCheck()
         {
-            if (!File.Exists(pathLeadboard))
+            if (!File.Exists(PATH_LEADBOARD_LIST))
             {
                 CreateFileForLeadboard();
             }
-        }
-
-        public void MainLeadboard()
-        {
-            FileExistenceCheck();
-            FillingList();
-            SortingList();
-            DisplayList();
-        }
-
-        public void SavingleadboardAfterGame(InfoPerson infoPerson)
-        {
-            FileExistenceCheck();
-            FillingList();
-            AddIntoLeadboard(infoPerson);
-            OwerwriteListFile();
-        }
+        }        
     }
 }
 
