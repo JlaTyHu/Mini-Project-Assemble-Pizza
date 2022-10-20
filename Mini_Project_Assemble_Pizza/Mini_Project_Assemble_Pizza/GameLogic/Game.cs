@@ -8,10 +8,11 @@
     using Mini_Project_Assemble_Pizza.Learboard;
 
     public class Game
-    {
+    {    
         public void ChoiceLevel(InfoPerson infoPerson)
         {
             ValidationCount validation = new ValidationCount();
+
             Console.WriteLine("Select level from 1 to 12.");
             int choiseLevelUser = validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
             StartGame(infoPerson, choiseLevelUser);
@@ -35,6 +36,8 @@
                 infoPerson.UserScore = userScore;
 
                 display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
+
+                
 
                 if (!display.DisplayUserChoiceStayOrExit())
                 {
@@ -100,7 +103,5 @@
 
             return attemp;
         }
-
-
     }
 }

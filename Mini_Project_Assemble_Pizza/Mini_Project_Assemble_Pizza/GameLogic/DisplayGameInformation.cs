@@ -2,12 +2,9 @@
 {
     using System;
     using Mini_Project_Assemble_Pizza.ValidationService;
-    using Mini_Project_Assemble_Pizza.Learboard;
 
     public class DisplayGameInformation
     {
-        ValidationCount validation = new ValidationCount();
-
         public void DisplayMessageBeforeLvl(int lvl, double score)
         {
             Console.WriteLine($"Current game level: {lvl}\t\t\tUser score: {score}\n");
@@ -32,8 +29,10 @@
 
         public bool DisplayUserChoiceStayOrExit()
         {
+            ValidationCount validation = new ValidationCount();
+
             Console.WriteLine("Do you want to continue playing or no? (yes / no)");
-            string userInputChoice = this.validation.ValidationUserInputChoiseStayOrExit(Console.ReadLine());
+            string userInputChoice = validation.ValidationUserInputChoiseStayOrExit(Console.ReadLine());
 
             return userInputChoice.Contains("yes") ? true : false ;
         }
