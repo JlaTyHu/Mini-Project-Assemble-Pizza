@@ -104,7 +104,22 @@
             {
                 CreateFileForLeadboard();
             }
-        }        
+        }
+
+        public void ChangeLeadboard(InfoPerson infoPerson)
+        {
+            foreach (var person1 in infoPersonList)
+            {
+                var resultOfCompareOfNames = person1.Name.CompareTo(infoPerson.Name);
+                var resultOfCompareOfAge = person1.Age.CompareTo(infoPerson.Age);
+
+                if (resultOfCompareOfNames == 0 && resultOfCompareOfAge == 0)
+                {
+                    person1.UserScore = infoPerson.UserScore;
+                    break;
+                }
+            }
+        }
     }
 }
 

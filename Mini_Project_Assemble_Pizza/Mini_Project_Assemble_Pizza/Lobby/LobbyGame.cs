@@ -23,6 +23,9 @@
 
             InfoPerson infoPerson = new InfoPerson(userInputName, userInputAge, DEFAULT_USER_SCORE_VALUE);
             BeginOfGame(infoPerson);
+
+            LeadboardGame leadboardGame = new LeadboardGame();
+            leadboardGame.ChangeLeadboard(infoPerson);
         }
 
         public void BeginOfGame(InfoPerson infoPerson)
