@@ -9,13 +9,11 @@
 
     public class Game
     {
-        ValidationCount validation = new ValidationCount();
-        DisplayGameInformation display = new DisplayGameInformation();
-        
         public void ChoiceLevel(InfoPerson infoPerson)
         {
+            ValidationCount validation = new ValidationCount();
             Console.WriteLine("Select level from 1 to 12.");
-            int choiseLevelUser = this.validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
+            int choiseLevelUser = validation.ValidationUserChoiceLvl(Int32.Parse(Console.ReadLine()));
             StartGame(infoPerson, choiseLevelUser);
         }
 
@@ -33,14 +31,12 @@
                 attemp = 1;
 
                 attemp = CheckingTheIngredientAndItsQuantity(lvl: gameLvl, score: userScore, attemp: attemp);
-                userScore = this.validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
+                userScore = validation.ValidationUserScore(score: userScore, lvl: gameLvl, attemp: attemp);
                 infoPerson.UserScore = userScore;
 
                 display.DisplayMessageAfterLvl(lvl: gameLvl, score: userScore, attemp: attemp);
 
-                
-
-                if (!this.display.DisplayUserChoiceStayOrExit())
+                if (!display.DisplayUserChoiceStayOrExit())
                 {
                     leadboard.SavingleadboardAfterGame(infoPerson);
                     break;
@@ -51,6 +47,8 @@
 
             Console.WriteLine($"Game ended! Youre total score = {userScore}");
         }
+
+
 
         private int CheckingTheIngredientAndItsQuantity(int lvl, double score, int attemp)
         {

@@ -23,6 +23,8 @@
 
         private void BeginOfGame(InfoPerson infoPerson)
         {
+            Console.Clear();
+
             Game game = new Game();
             Console.WriteLine("Lobby");
 
@@ -37,8 +39,24 @@
 
             else if (userChoice == 't')
             {
+                Console.Clear();
                 LeadboardGame leadboard = new LeadboardGame();
                 leadboard.MainLeadboard();
+                BackToLobby(infoPerson);
+            }
+        }
+
+        private void BackToLobby(InfoPerson infoPerson)
+        {
+            Console.WriteLine("<= Back (Press b)");
+
+            char back = Char.Parse(Console.ReadLine());
+
+            switch(back)
+            {
+                case 'b': BeginOfGame(infoPerson);  break;
+                default: Console.WriteLine("There is no such option!");
+                    break;
             }
         }
     }
