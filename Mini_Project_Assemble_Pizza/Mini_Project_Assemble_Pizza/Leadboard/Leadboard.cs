@@ -9,7 +9,7 @@
     {
         List<InfoPerson> infoPersonList = new List<InfoPerson>();
         
-        const string pathLeadboard = @"DataLeadboard\leadboard.json";
+        const string pathLeadboard = @"leadboard.json";
         private void FillingList()
         {
             using (StreamReader leadboardRead = new StreamReader(pathLeadboard))
@@ -88,6 +88,7 @@
 
         public void MainLeadboard()
         {
+            FileExistenceCheck();
             FillingList();
             SortingList();
             DisplayList();
