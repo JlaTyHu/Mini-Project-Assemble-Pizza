@@ -2,7 +2,7 @@
 {
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
-
+    using Entity = Mini_Project_Assemble_Pizza.Entities;
     public class CreateGame
     {
         private readonly IIngredientsService _ingredientsService;
@@ -43,7 +43,6 @@
                 default: break;
             }
         }
-
         public void SelectLevelGame()
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
@@ -87,6 +86,24 @@
         {
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+        }
+
+        private void BackToMenuUser()
+        {
+            Console.WriteLine("<= Back (Press b)");
+
+            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
+
+            BackToMenu(userInputChoice);
+        }
+        private void BackToMenu(char userInputChoice)
+        {
+            bool checkButtons = userInputChoice == null || userInputChoice != 'b';
+            
+            if(checkButtons)
+            {
+                throw new Exception("No such option!");
+            }
         }
 
 
