@@ -31,7 +31,7 @@
             switch (userInputChoice)
             {
                 case 'y': SelectLevelGame(); break;
-                case 't': break; // TODO: need to add leadboard
+                case 't': ShowToUserLeadboard();  break; 
                 case 'x': break;
                 default: throw new Exception("Invalid value!");
             }
@@ -60,6 +60,8 @@
                 userScore = GuessTheIngredient(ingredientsToRemember, userScore, i);
 
                 DisplayMessageAfterLvl(i, userScore);
+
+                DisplayUserChoiceStayOrExit();
             }
         }
 
@@ -124,6 +126,7 @@
             {
                 throw new Exception("No such option!");
             }
+            EnterUserMenu();
         }
 
         private double UserScore(double score, int lvl)
@@ -158,6 +161,7 @@
             Leadboard leadboard = new Leadboard();
             leadboard.SortingList();
             leadboard.DisplayList();
+            BackToMenuUser();
         }
 
         private void DisplayMessageAfterLvl(int lvl, double score)
@@ -170,10 +174,15 @@
 
         private bool DisplayUserChoiceStayOrExit()
         {
-            Console.WriteLine("Do you want to continue playing or no? (yes / no)");
-            string userInputChoice = Console.ReadLine();
-
-            return userInputChoice.Equals("yes") ? true : false;
+            Console.WriteLine("Do you want to continue playing or no? (y / n)");
+            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
+            switch(userInputChoice)
+            {
+                case 'y': break;
+                case 'n': EnterUserMenu(); break;
+                default: break;
+            }
+            return userInputChoice.Equals('y') ? true : false;
         }
     }
 }

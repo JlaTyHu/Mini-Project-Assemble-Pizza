@@ -11,6 +11,8 @@ namespace Mini_Project_Assemble_Pizza.Services
 
         public void DisplayList()
         {
+            Console.Clear();
+
             Console.WriteLine("Name: \t Age: \t Score:");
             foreach (var person in this.infoPersonList)
             {
