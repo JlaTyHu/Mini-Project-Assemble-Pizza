@@ -2,7 +2,9 @@
 {
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
+    using System.Collections.Generic;
     using Entity = Mini_Project_Assemble_Pizza.Entities;
+
     public class CreateGame : IngredientsService
     {
         private readonly IIngredientsService _ingredientsService;
@@ -41,16 +43,16 @@
                 default: break;
             }
         }
+
         public void SelectLevelGame()
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
-
             int gameLevel = Int32.Parse(Console.ReadLine());
 
-            BeginGame(gameLevel);
+            double userScore = BeginGame(gameLevel);
         }
 
-        private void BeginGame(int gameLevel)
+        private double BeginGame(int gameLevel)
         {
             double userScore = 0;
 
@@ -62,6 +64,8 @@
 
                 userScore = GuessTheIngredient(ingredientsToRemember, gameLevel);
             }
+
+            return userScore;
         }
 
         private double GuessTheIngredient(Dictionary<string, int> ingredients, int gameLevel)
@@ -134,6 +138,10 @@
             }
         }
 
+        private double UserScore(double score, int lvl)
+        {
+            return lvl == 1 ? 10 + lvl : 10 + lvl + score;
+        }
 
         private int CountOfIngredients(int gameLvl)
         {
