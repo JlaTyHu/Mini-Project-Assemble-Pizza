@@ -5,5 +5,6 @@
     public interface IIngredientsService
     {
         Dictionary<string, int> RandomIngredients(int numberOfIngredientsToRemember);
+        void DisplayIngredientsAsTable();
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
-    using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.Interfaces;
-    using Entity = Mini_Project_Assemble_Pizza.Entities;
-    using Mini_Project_Assemble_Pizza.Entities;
+    using System.Collections.Generic;
+    using Entity = Entities;
     using System;
 
     public class CreateGame : DisplayService
@@ -29,8 +28,9 @@
 
                 userScore = GuessTheIngredient(ingredientsToRemember, userScore, i);
 
-                DisplayMessageAfterLvl(i, userScore);
-                isExit = DisplayUserChoiceStayOrExit();
+                MessageAfterLvl(i, userScore);
+
+                UserChoiceStayOrExit();
             }
         }
 
@@ -80,11 +80,6 @@
 
         private Entity.User ScoreEntitys(double score)
         {
-            if (score == 0) // TODO
-            {
-                throw new Exception("You can't have 0 points.");
-            }
-
             return new Entity.User
             {
                 UserScore = score,
@@ -96,8 +91,10 @@
             return gameLvl <= 5 ? gameLvl : 5;
         }
 
+        
         public void EnterUserMenu()
         {
+            _ingredientsService.DisplayIngredientsAsTable();
             Console.Clear();
 
             Console.WriteLine("Lobby");
@@ -130,11 +127,17 @@
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
             int gameLevel = Int32.Parse(Console.ReadLine());
-
-            BeginGame(gameLevel);
         }
 
-        public void BackToMenuUser()
+        private void MessageAfterLvl(int lvl, double score)
+        {
+            Console.WriteLine($"You won {lvl} lvl!\t\tCurrent score: {score}");
+
+            DisplayGamePause();
+            Console.Clear();
+        }
+
+        private void BackToMenuUser()
         {
             Console.WriteLine("<= Back (Press b)");
 
@@ -142,7 +145,6 @@
 
             BackToMenu(userInputChoice);
         }
-
         public void BackToMenu(char userInputChoice)
         {
             if (userInputChoice == ' ' || userInputChoice != 'b')
@@ -152,7 +154,7 @@
             EnterUserMenu();
         }
 
-        protected bool DisplayUserChoiceStayOrExit()
+        private bool UserChoiceStayOrExit()
         {
             Console.WriteLine("Do you want to continue playing or no? (y / n)");
             char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);

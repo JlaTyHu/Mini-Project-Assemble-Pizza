@@ -1,7 +1,5 @@
 ﻿namespace Mini_Project_Assemble_Pizza
 {
-    using System;
-    using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.Services;
 
     public class Program
@@ -15,7 +13,7 @@
 
             IngredientsService ingredientsService = new IngredientsService();
             CreateGame createGame = new CreateGame(ingredientsService);
-
+           
             createGame.EnterUserMenu();
         }
     }
