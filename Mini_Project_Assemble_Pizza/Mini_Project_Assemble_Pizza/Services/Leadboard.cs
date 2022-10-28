@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Mini_Project_Assemble_Pizza.Entities;
-using Entity = Mini_Project_Assemble_Pizza.Entities;
-
 namespace Mini_Project_Assemble_Pizza.Services
 {
     internal class Leadboard

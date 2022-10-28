@@ -6,7 +6,6 @@
     public class AuthorizationOfUserInput
     {
         private readonly IAuthorizationService _authorizationService;
-
         public AuthorizationOfUserInput(IAuthorizationService authorizationService)
         {
             this._authorizationService = authorizationService;
@@ -19,10 +18,6 @@
             int age = Convert.ToInt32(Console.ReadLine());
 
             _authorizationService.RegisterUser(userName, age);
-
-            IngredientsService gg = new IngredientsService();
-            CreateGame createGame = new CreateGame(gg);
-            createGame.EnterUserMenu();
         }
     }
 }

@@ -3,54 +3,25 @@
     using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.Interfaces;
     using Entity = Mini_Project_Assemble_Pizza.Entities;
+    using Mini_Project_Assemble_Pizza.Entities;
     using System;
 
     public class CreateGame : DisplayService
     {
         private readonly IIngredientsService _ingredientsService;
-
-        public CreateGame(IIngredientsService ingredientsService)
+       
+        public CreateGame(IIngredientsService ingredientsService) 
         {
             this._ingredientsService = ingredientsService;
         }
 
-        public void EnterUserMenu()
-        {
-            Console.Clear();
-
-            Console.WriteLine("Lobby");
-
-            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
-            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
-            MenuGame(userInputChoice);
-        }
-
-        public void MenuGame(char userInputChoice)
-        {
-            switch (userInputChoice)
-            {
-                case 'y': SelectLevelGame(); break;
-                case 't': ShowToUserLeadboard();  break; 
-                case 'x': break;
-                default: throw new Exception("Invalid value!");
-            }
-        }
-
-        public void SelectLevelGame()
-        {
-            Console.WriteLine("\nSelect level from 1 to 12: ");
-            int gameLevel = Int32.Parse(Console.ReadLine());
-
-            BeginGame(gameLevel);
-        }
-
-        private void BeginGame(int gameLevel)
+        protected void BeginGame(int gameLevel)
         {
             double userScore = 0;
-
+            bool isExit = true;
             CreateAGame(gameLevel, userScore);
 
-            for (int i = gameLevel; i <= 12; i++)
+            for (int i = gameLevel; i <= 12 && isExit == true; i++)
             {
                 DisplayMessageBeforeLvl(gameLevel, userScore);
 
@@ -59,8 +30,7 @@
                 userScore = GuessTheIngredient(ingredientsToRemember, userScore, i);
 
                 DisplayMessageAfterLvl(i, userScore);
-
-                DisplayUserChoiceStayOrExit();
+                isExit = DisplayUserChoiceStayOrExit();
             }
         }
 
@@ -99,25 +69,6 @@
                 DisplayGamePause();
             }
         }
-              
-        private void BackToMenuUser()
-        {
-            Console.WriteLine("<= Back (Press b)");
-
-            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
-
-            BackToMenu(userInputChoice);
-        }
-
-        private void BackToMenu(char userInputChoice)
-        {
-            if (userInputChoice == ' ' || userInputChoice != 'b')
-            {
-                throw new Exception("No such option!");
-            }
-            EnterUserMenu();
-        }
-
         private double UserScore(double score, int lvl)
         {
             double scoreFormul = lvl == 1 ? 10 : 10 + lvl + score;
@@ -145,32 +96,76 @@
             return gameLvl <= 5 ? gameLvl : 5;
         }
 
-        private void ShowToUserLeadboard()
+        public void EnterUserMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Lobby");
+
+            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
+            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
+
+            MenuGame(userInputChoice);
+        }
+
+        public void MenuGame(char userInputChoice)
+        {
+            switch (userInputChoice)
+            {
+                case 'y': SelectLevelGame(); break;
+                case 't': ShowToUserLeadboard(); break;
+                case 'x': Console.WriteLine("Game over!"); break;
+                default: throw new Exception("Invalid value!");
+            }
+            Console.Clear();
+        }
+        public void ShowToUserLeadboard()
         {
             Leadboard leadboard = new Leadboard();
             leadboard.SortingList();
             leadboard.DisplayList();
             BackToMenuUser();
         }
-
-        private void DisplayMessageAfterLvl(int lvl, double score)
+        public void SelectLevelGame()
         {
-            Console.WriteLine($"You won {lvl} lvl!\t\tCurrent score: {score}");
+            Console.WriteLine("\nSelect level from 1 to 12: ");
+            int gameLevel = Int32.Parse(Console.ReadLine());
 
-            DisplayGamePause();
-            Console.Clear();
+            BeginGame(gameLevel);
         }
 
-        private bool DisplayUserChoiceStayOrExit()
+        public void BackToMenuUser()
+        {
+            Console.WriteLine("<= Back (Press b)");
+
+            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
+
+            BackToMenu(userInputChoice);
+        }
+
+        public void BackToMenu(char userInputChoice)
+        {
+            if (userInputChoice == ' ' || userInputChoice != 'b')
+            {
+                throw new Exception("No such option!");
+            }
+            EnterUserMenu();
+        }
+
+        protected bool DisplayUserChoiceStayOrExit()
         {
             Console.WriteLine("Do you want to continue playing or no? (y / n)");
             char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
-            switch(userInputChoice)
+            switch (userInputChoice)
             {
                 case 'y': break;
-                case 'n': EnterUserMenu(); break;
+                case 'n':
+                    EnterUserMenu();
+                   
+                    break;
                 default: break;
             }
+
             return userInputChoice.Equals('y') ? true : false;
         }
     }

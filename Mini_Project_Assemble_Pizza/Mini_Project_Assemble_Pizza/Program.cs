@@ -12,6 +12,11 @@
             AuthorizationOfUserInput authorizationOfUserInput = new AuthorizationOfUserInput(authorizationService);
 
             authorizationOfUserInput.EnterUserInfo();
+
+            IngredientsService ingredientsService = new IngredientsService();
+            CreateGame createGame = new CreateGame(ingredientsService);
+
+            createGame.EnterUserMenu();
         }
     }
 }

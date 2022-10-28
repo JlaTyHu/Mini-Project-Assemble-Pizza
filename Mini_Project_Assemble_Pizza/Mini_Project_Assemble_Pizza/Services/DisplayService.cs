@@ -1,8 +1,9 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
     using System;
+    using Mini_Project_Assemble_Pizza.Interfaces;
 
-    public class DisplayService
+    public class DisplayService 
     {
         protected void DisplayMessageBeforeLvl(int lvl, double score)
         {
@@ -21,14 +22,6 @@
 
             DisplayGamePause();
             Console.Clear();
-        }
-
-        protected bool DisplayUserChoiceStayOrExit()
-        {
-            Console.WriteLine("Do you want to continue playing or no? (yes / no)");
-            string userInputChoice = Console.ReadLine();
-
-            return userInputChoice.Equals("yes") ? true : false;
         }
     }
 }
