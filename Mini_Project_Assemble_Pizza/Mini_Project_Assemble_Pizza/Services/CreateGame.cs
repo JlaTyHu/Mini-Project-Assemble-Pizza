@@ -4,6 +4,8 @@
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
     using Entity = Mini_Project_Assemble_Pizza.Entities;
+    using Mini_Project_Assemble_Pizza.Services;
+
     public class CreateGame : IngredientsService
     {
         private readonly IIngredientsService _ingredientsService;
@@ -35,7 +37,7 @@
                     break;
 
                 case 't':
-                    
+                    ShowToUserLeadboard();
                     break;
 
                 case 'x': break;
@@ -159,6 +161,11 @@
             return gameLvl <= 5 ? gameLvl : 5;
         }
 
-        private 
+        private void ShowToUserLeadboard()
+        {
+            Leadboard leadboard = new Leadboard();
+            leadboard.SortingList();
+            leadboard.DisplayList();
+        }
     }
 }
