@@ -8,7 +8,7 @@
     {
         static void Main(string[] args)
         {
-            CreateGame createGame = new CreateGame(new Dictionary<string, int>());
+           
         }
     }
 }

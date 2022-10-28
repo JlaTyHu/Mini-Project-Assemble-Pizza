@@ -30,24 +30,16 @@
         {
             switch (userInputChoice)
             {
-                case 'y':
-
-                    SelectLevelGame();
-
-                    break;
-
-                case 't':
-                    ShowToUserLeadboard();
-                    break;
-
+                case 'y': SelectLevelGame(); break;
+                case 't': break; // TODO: need to add leadboard
                 case 'x': break;
-                default: break;
+                default: throw new Exception("Invalid value!");
             }
         }
+
         public void SelectLevelGame()
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
-
             int gameLevel = Int32.Parse(Console.ReadLine());
 
             BeginGame(gameLevel);
@@ -127,6 +119,7 @@
 
             BackToMenu(userInputChoice);
         }
+
         private void BackToMenu(char userInputChoice)
         {
             bool checkButtons = userInputChoice == ' ' || userInputChoice != 'b';
@@ -136,16 +129,19 @@
                 throw new Exception("No such option!");
             }
         }
+
         private double UserScore(double score, int lvl)
         {
             double scoreFormul = lvl == 1 ? 10 : 10 + lvl + score;
+
             ScoreEntitys(scoreFormul);
+
             return scoreFormul;
         }
 
         private Entity.User ScoreEntitys(double score)
         {
-            if(score == 0)
+            if(score == 0) // TODO
             {
                 throw new Exception("You can't have 0 points.");
             }
@@ -153,9 +149,9 @@
             return new Entity.User
             {
                 UserScore = score,
-            }
-            ;
+            };
         }
+
         private int CountOfIngredients(int gameLvl)
         {
             return gameLvl <= 5 ? gameLvl : 5;
