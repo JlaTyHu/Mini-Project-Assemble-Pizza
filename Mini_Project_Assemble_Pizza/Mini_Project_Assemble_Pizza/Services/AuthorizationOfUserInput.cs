@@ -15,7 +15,7 @@
         public void CreateGame()
         {
             Console.WriteLine("Please enter name and age: ");
-            string? userName = Console.ReadLine();
+            string userName = Console.ReadLine();
             int age = Convert.ToInt32(Console.ReadLine());
 
             var user = _authorizationService.RegisterUser(userName, age);

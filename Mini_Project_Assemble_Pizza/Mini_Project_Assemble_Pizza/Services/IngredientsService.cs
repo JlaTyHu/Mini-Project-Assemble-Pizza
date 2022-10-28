@@ -7,7 +7,7 @@
     {
         private static List<string> _ingredients { get; set; }
 
-        public Dictionary<string, int> RandomIngredients(int numberOfIngredientsToRemember)
+        public Dictionary<string, int> GenerateRandomIngredients(int numberOfIngredientsToRemember)
         {
             Random rnd = new Random();
             Dictionary<string, int> randomIngredientsToRemember = new Dictionary<string, int>();
@@ -25,14 +25,13 @@
                 randomIngredientsToRemember.Add(_ingredients[randomIngredient], randomPiece);
                 _ingredients.Remove(_ingredients[randomIngredient]);
 
-                System.Threading.Thread.Sleep(1000);
+                Console.Beep(0, 1000);
             }
 
             // SetTimer(timeInSeconds: 5);
 
             return randomIngredientsToRemember;
         }
-
 
         public void DisplayIngredientsAsTable()
         {
