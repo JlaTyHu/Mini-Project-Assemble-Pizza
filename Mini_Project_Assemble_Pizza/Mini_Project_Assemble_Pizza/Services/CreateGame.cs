@@ -127,7 +127,7 @@
         }
         private void BackToMenu(char userInputChoice)
         {
-            bool checkButtons = userInputChoice == null || userInputChoice != 'b';
+            bool checkButtons = userInputChoice == ' ' || userInputChoice != 'b';
             
             if(checkButtons)
             {
@@ -158,5 +158,7 @@
         {
             return gameLvl <= 5 ? gameLvl : 5;
         }
+
+        private 
     }
 }
