@@ -37,11 +37,12 @@
 
         public void DisplayIngredientsAsTable()
         {
-            for (int elementsInLine = 0; elementsInLine < _ingredients.Count; elementsInLine++)
+            AddIngredients();
+            for (int elementsInLine = 1; elementsInLine-1 < _ingredients.Count; elementsInLine++)
             {
-                string displayMessage = elementsInLine % 2 == 0 ? $"\n{_ingredients[elementsInLine]}\t\t" : $"\n{_ingredients[elementsInLine]}\t\t";
+                string displayMessage = elementsInLine % 2 == 0 ? $"{_ingredients[elementsInLine - 1]}" : $"\n{_ingredients[elementsInLine - 1]}\t\t";
 
-                Console.WriteLine(displayMessage);
+                Console.Write(displayMessage);
             }
         }
 
@@ -61,7 +62,7 @@
         private List<string> AddIngredients()
         {
             _ingredients = new List<string>();
-            string[] ingredients = { "Cheese", "Tomato", "Mushrooms", "Sausage", "Meat", "Pineapple", "Mayonnaise", "Ketchup", "Bacon", "Onion", "Olives", "Pepper" };
+            string[] ingredients = { "Cheese", "Tomato", "Sausage", "Mushrooms","Meat", "Pineapple", "Ketchup", "Mayonnaise", "Bacon", "Onion", "Olives", "Pepper" };
 
             _ingredients.AddRange(ingredients);
 

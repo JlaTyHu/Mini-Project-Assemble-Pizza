@@ -30,13 +30,13 @@
 
                 MessageAfterLvl(i, userScore);
 
-                UserChoiceStayOrExit();
+                isExit = UserChoiceStayOrExit();
             }
         }
 
         private double GuessTheIngredient(Dictionary<string, int> ingredients, double userScore, int gameLevel)
         {
-            for (; ingredients.Count != 0;)
+            while (ingredients.Count != 0)
             {
                 DisplayMessageBeforeLvl(gameLevel, userScore);
 
@@ -95,9 +95,8 @@
         public void EnterUserMenu()
         {
             _ingredientsService.DisplayIngredientsAsTable();
-            Console.Clear();
-
-            Console.WriteLine("Lobby");
+            
+            Console.WriteLine("\n\nLobby");
 
             Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
             char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
@@ -127,6 +126,7 @@
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
             int gameLevel = Int32.Parse(Console.ReadLine());
+            BeginGame(gameLevel);
         }
 
         private void MessageAfterLvl(int lvl, double score)
@@ -161,10 +161,7 @@
             switch (userInputChoice)
             {
                 case 'y': break;
-                case 'n':
-                    EnterUserMenu();
-                   
-                    break;
+                case 'n': EnterUserMenu();break;
                 default: break;
             }
 
