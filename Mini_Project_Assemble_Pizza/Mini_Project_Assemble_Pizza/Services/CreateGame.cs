@@ -13,7 +13,37 @@
             this._ingredientsService = ingredientsService;
         }
 
-        public void BuildGame()
+        public void EnterUserMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Lobby");
+
+            Console.WriteLine("Begin game (Press y) \t Leadboeard(Press t) \t Close(Press x)");
+            char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
+            MenuGame(userInputChoice);
+        }
+
+        public void MenuGame(char userInputChoice)
+        {
+            switch (userInputChoice)
+            {
+                case 'y':
+
+                    SelectLevelGame();
+
+                    break;
+
+                case 't':
+                    
+                    break;
+
+                case 'x': break;
+                default: break;
+            }
+        }
+
+        public void SelectLevelGame()
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
 

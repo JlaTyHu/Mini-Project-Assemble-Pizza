@@ -19,8 +19,7 @@
             return new Entity.User
             {
                 UserName = name,
-                UserAge = age,
-                UserScore = 0
+                UserAge = age
             };
         }
     }
