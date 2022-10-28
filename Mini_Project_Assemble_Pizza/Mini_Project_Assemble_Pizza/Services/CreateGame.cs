@@ -6,11 +6,10 @@
     using Entity = Mini_Project_Assemble_Pizza.Entities;
     using Mini_Project_Assemble_Pizza.Services;
 
-    public class CreateGame : IngredientsService
+    public class CreateGame
     {
         private readonly IIngredientsService _ingredientsService;
 
-        public CreateGame() { }
         public CreateGame(IIngredientsService ingredientsService)
         {
             this._ingredientsService = ingredientsService;
@@ -50,18 +49,24 @@
         {
             double userScore = 0;
 
-            CreateAGame(gameLevel, userScore);          
+            CreateAGame(gameLevel, userScore);
 
-            for (int i = 0; i <= 12; i++)
+            for (int i = gameLevel; i <= 12; i++)
             {
-                var ingredientsToRemember = GenerateRandomIngredients(CountOfIngredients(gameLevel));
+                DisplayMessageBeforeLvl(gameLevel, userScore);
 
-                userScore = GuessTheIngredient(ingredientsToRemember, userScore, gameLevel);
+                var ingredientsToRemember = _ingredientsService.RandomIngredients(CountOfIngredients(i));
+
+                userScore = GuessTheIngredient(ingredientsToRemember, userScore, i);
+
+                DisplayMessageAfterLvl(i, userScore);
             }
         }
 
         private double GuessTheIngredient(Dictionary<string, int> ingredients, double userScore, int gameLevel)
         {
+            DisplayMessageBeforeLvl(gameLevel, userScore);
+
             Console.Write("Enter Ingredient: ");
             string userInputIngredients = Console.ReadLine();
 
@@ -78,7 +83,7 @@
             }
             else
             {
-                Console.WriteLine($"\nInput Error! You didn't guess the ingredient or quantity!\n");
+                throw new Exception("Input Error! You didn't guess the ingredient or quantity!");
             }
 
             return userScore;
@@ -96,8 +101,6 @@
         private void DisplayMessageBeforeLvl(int lvl, double score)
         {
             Console.WriteLine($"Current game level: {lvl}\t\t\tUser score: {score}\n");
-            Console.WriteLine("You have 5 attempts to guess the ingredient and its quantity, " +
-                "otherwise you won't get any points!\n");
         }
 
         private void DisplayGamePause()
@@ -117,7 +120,7 @@
 
         private void BackToMenu(char userInputChoice)
         {
-            if(userInputChoice == ' ' || userInputChoice != 'b')
+            if (userInputChoice == ' ' || userInputChoice != 'b')
             {
                 throw new Exception("No such option!");
             }
@@ -134,7 +137,7 @@
 
         private Entity.User ScoreEntitys(double score)
         {
-            if(score == 0) // TODO
+            if (score == 0) // TODO
             {
                 throw new Exception("You can't have 0 points.");
             }
@@ -155,6 +158,22 @@
             Leadboard leadboard = new Leadboard();
             leadboard.SortingList();
             leadboard.DisplayList();
+        }
+
+        private void DisplayMessageAfterLvl(int lvl, double score)
+        {
+            Console.WriteLine($"You won {lvl} lvl!\t\tCurrent score: {score}");
+
+            DisplayGamePause();
+            Console.Clear();
+        }
+
+        private bool DisplayUserChoiceStayOrExit()
+        {
+            Console.WriteLine("Do you want to continue playing or no? (yes / no)");
+            string userInputChoice = Console.ReadLine();
+
+            return userInputChoice.Equals("yes") ? true : false;
         }
     }
 }

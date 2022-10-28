@@ -1,16 +1,18 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
+    using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
     using System.Collections.Generic;
 
-    public class IngredientsService
+    public class IngredientsService : IIngredientsService
     {
         private static List<string> _ingredients { get; set; }
 
-        public Dictionary<string, int> GenerateRandomIngredients(int numberOfIngredientsToRemember)
+        public Dictionary<string, int> RandomIngredients(int numberOfIngredientsToRemember)
         {
             Random rnd = new Random();
             Dictionary<string, int> randomIngredientsToRemember = new Dictionary<string, int>();
+            AddIngredients();
 
             int randomIngredient;
             int randomPiece;
@@ -25,10 +27,10 @@
                 randomIngredientsToRemember.Add(_ingredients[randomIngredient], randomPiece);
                 _ingredients.Remove(_ingredients[randomIngredient]);
 
-                Console.Beep(0, 1000);
+                Console.Beep(37, 1000);
             }
 
-            // SetTimer(timeInSeconds: 5);
+            SetTimer(timeInSeconds: 5);
 
             return randomIngredientsToRemember;
         }
@@ -45,8 +47,22 @@
             }
         }
 
+        private void SetTimer(int timeInSeconds)
+        {
+            Console.WriteLine();
+
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine($"Game will start in {timeInSeconds - i}");
+                Console.Beep(37, 1000);
+            }
+
+            Console.Clear();
+        }
+
         private List<string> AddIngredients()
         {
+            _ingredients = new List<string>();
             string[] ingredients = { "Cheese", "Tomato", "Mushrooms", "Sausage", "Meat", "Pineapple", "Mayonnaise", "Ketchup", "Bacon", "Onion", "Olives", "Pepper" };
 
             _ingredients.AddRange(ingredients);

@@ -20,7 +20,8 @@
 
             _authorizationService.RegisterUser(userName, age);
 
-            CreateGame createGame = new CreateGame();
+            IngredientsService gg = new IngredientsService();
+            CreateGame createGame = new CreateGame(gg);
             createGame.EnterUserMenu();
         }
     }
