@@ -1,8 +1,8 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
+    using Entity = Entities;
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
-    using Entity = Mini_Project_Assemble_Pizza.Entities;
 
     public class AuthorizationService : IAuthorizationService
     {

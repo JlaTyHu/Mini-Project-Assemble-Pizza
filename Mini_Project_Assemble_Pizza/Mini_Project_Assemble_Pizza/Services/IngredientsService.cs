@@ -1,8 +1,8 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
     using Mini_Project_Assemble_Pizza.Interfaces;
-    using System;
     using System.Collections.Generic;
+    using System;
 
     public class IngredientsService : IIngredientsService
     {
@@ -37,11 +37,9 @@
 
         public void DisplayIngredientsAsTable()
         {
-            for (int numberOfElementsInLine = 0; numberOfElementsInLine < _ingredients.Count; numberOfElementsInLine++)
+            for (int elementsInLine = 0; elementsInLine < _ingredients.Count; elementsInLine++)
             {
-                string displayMessage = numberOfElementsInLine % 2 == 0 ?
-                                $"\n{_ingredients[numberOfElementsInLine]}\t\t" : 
-                                $"{_ingredients[numberOfElementsInLine]}\t\t";
+                string displayMessage = elementsInLine % 2 == 0 ? $"\n{_ingredients[elementsInLine]}\t\t" : $"\n{_ingredients[elementsInLine]}\t\t";
 
                 Console.WriteLine(displayMessage);
             }
