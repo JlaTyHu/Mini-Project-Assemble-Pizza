@@ -1,5 +1,6 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
+    using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
     using Entity = Mini_Project_Assemble_Pizza.Entities;
@@ -133,8 +134,26 @@
                 throw new Exception("No such option!");
             }
         }
+        private double UserScore(double score, int lvl)
+        {
+            double scoreFormul = lvl == 1 ? 10 : 10 + lvl + score;
+            ScoreEntitys(scoreFormul);
+            return scoreFormul;
+        }
 
+        private Entity.User ScoreEntitys(double score)
+        {
+            if(score == 0)
+            {
+                throw new Exception("You can't have 0 points.");
+            }
 
+            return new Entity.User
+            {
+                UserScore = score,
+            }
+            ;
+        }
         private int CountOfIngredients(int gameLvl)
         {
             return gameLvl <= 5 ? gameLvl : 5;
