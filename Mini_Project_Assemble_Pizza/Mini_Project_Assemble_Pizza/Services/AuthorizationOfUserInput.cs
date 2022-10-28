@@ -3,11 +3,11 @@
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
 
-    public class Game
+    public class AuthorizationOfUserInput
     {
         private readonly IAuthorizationService _authorizationService;
 
-        public Game(IAuthorizationService authorizationService)
+        public AuthorizationOfUserInput(IAuthorizationService authorizationService)
         {
             this._authorizationService = authorizationService;
         }
