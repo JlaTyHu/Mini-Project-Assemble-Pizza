@@ -48,29 +48,25 @@
         {
             double userScore = 0;
 
-            CreateAGame(gameLevel);          
+            CreateAGame(gameLevel, userScore);          
 
             for (int i = 0; i <= 12; i++)
             {
                 var ingredientsToRemember = GenerateRandomIngredients(CountOfIngredients(gameLevel));
 
-                userScore = GuessTheIngredient(ingredientsToRemember, gameLevel);
+                userScore = GuessTheIngredient(ingredientsToRemember, userScore, gameLevel);
             }
         }
 
-        private double GuessTheIngredient(Dictionary<string, int> ingredients, int gameLevel)
+        private double GuessTheIngredient(Dictionary<string, int> ingredients, double userScore, int gameLevel)
         {
-            double userScore = 0;
-
             Console.Write("Enter Ingredient: ");
             string userInputIngredients = Console.ReadLine();
 
             Console.Write("Enter number of pieces for ingredients: ");
             int userInputNumberOfIngredients = Convert.ToInt32(Console.ReadLine());
 
-            bool chekUserInputs = ingredients.ContainsKey(userInputIngredients) && (ingredients[userInputIngredients] == userInputNumberOfIngredients);
-
-            if (chekUserInputs)
+            if (ingredients.ContainsKey(userInputIngredients) && (ingredients[userInputIngredients] == userInputNumberOfIngredients))
             {
                 Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} have {ingredients[userInputIngredients]} pieces!\n");
 
@@ -86,13 +82,11 @@
             return userScore;
         }
 
-        private void CreateAGame(int gameLevel)
+        private void CreateAGame(int gameLevel, double userScore)
         {
             if (gameLevel < 0 || gameLevel >= 12)
             {
-                var defaultUserScore = 0;
-
-                DisplayMessageBeforeLvl(gameLevel, defaultUserScore);
+                DisplayMessageBeforeLvl(gameLevel, userScore);
                 DisplayGamePause();
             }
         }
@@ -121,9 +115,7 @@
 
         private void BackToMenu(char userInputChoice)
         {
-            bool checkButtons = userInputChoice == ' ' || userInputChoice != 'b';
-            
-            if(checkButtons)
+            if(userInputChoice == ' ' || userInputChoice != 'b')
             {
                 throw new Exception("No such option!");
             }
@@ -155,7 +147,5 @@
         {
             return gameLvl <= 5 ? gameLvl : 5;
         }
-
-        private 
     }
 }
