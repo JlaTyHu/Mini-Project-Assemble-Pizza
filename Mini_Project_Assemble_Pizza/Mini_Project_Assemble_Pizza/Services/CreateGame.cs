@@ -4,6 +4,7 @@
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
     using Entity = Mini_Project_Assemble_Pizza.Entities;
+    using Mini_Project_Assemble_Pizza.Services;
 
     public class CreateGame : IngredientsService
     {
@@ -146,6 +147,13 @@
         private int CountOfIngredients(int gameLvl)
         {
             return gameLvl <= 5 ? gameLvl : 5;
+        }
+
+        private void ShowToUserLeadboard()
+        {
+            Leadboard leadboard = new Leadboard();
+            leadboard.SortingList();
+            leadboard.DisplayList();
         }
     }
 }

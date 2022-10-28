@@ -9,7 +9,7 @@ namespace Mini_Project_Assemble_Pizza.Services
     {
         List<User> infoPersonList = new List<User>();
 
-        private void DisplayList()
+        public void DisplayList()
         {
             Console.WriteLine("Name: \t Age: \t Score:");
             foreach (var person in this.infoPersonList)
@@ -18,7 +18,7 @@ namespace Mini_Project_Assemble_Pizza.Services
             }
         }
 
-        private void SortingList()
+        public void SortingList()
         {
             double userScore;
             int age;
@@ -48,7 +48,7 @@ namespace Mini_Project_Assemble_Pizza.Services
             }
         }
 
-        private void AddIntoLeadboard(User user)
+        public void AddIntoLeadboard(User user)
         {
             this.infoPersonList.Add(user);
         }
