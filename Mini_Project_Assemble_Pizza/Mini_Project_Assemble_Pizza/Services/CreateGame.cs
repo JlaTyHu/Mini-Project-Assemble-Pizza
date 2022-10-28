@@ -10,6 +10,7 @@
     {
         private readonly IIngredientsService _ingredientsService;
 
+        public CreateGame() { }
         public CreateGame(IIngredientsService ingredientsService)
         {
             this._ingredientsService = ingredientsService;

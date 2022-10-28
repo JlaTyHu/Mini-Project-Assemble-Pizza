@@ -8,7 +8,10 @@
     {
         static void Main(string[] args)
         {
-           
+            AuthorizationService authorizationService = new AuthorizationService();
+            AuthorizationOfUserInput authorizationOfUserInput = new AuthorizationOfUserInput(authorizationService);
+
+            authorizationOfUserInput.EnterUserInfo();
         }
     }
 }

@@ -12,13 +12,16 @@
             this._authorizationService = authorizationService;
         }
 
-        public void CreateGame()
+        public void EnterUserInfo()
         {
             Console.WriteLine("Please enter name and age: ");
             string userName = Console.ReadLine();
             int age = Convert.ToInt32(Console.ReadLine());
 
-            var user = _authorizationService.RegisterUser(userName, age);
+            _authorizationService.RegisterUser(userName, age);
+
+            CreateGame createGame = new CreateGame();
+            createGame.EnterUserMenu();
         }
     }
 }
