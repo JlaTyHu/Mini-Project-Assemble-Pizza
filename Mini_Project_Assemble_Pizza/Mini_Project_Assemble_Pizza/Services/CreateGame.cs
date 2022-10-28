@@ -1,8 +1,8 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
-    using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.Interfaces;
-    using Entity = Mini_Project_Assemble_Pizza.Entities;
+    using System.Collections.Generic;
+    using Entity = Entities;
     using System;
 
     public class CreateGame : DisplayService
@@ -58,9 +58,9 @@
 
                 userScore = GuessTheIngredient(ingredientsToRemember, userScore, i);
 
-                DisplayMessageAfterLvl(i, userScore);
+                MessageAfterLvl(i, userScore);
 
-                DisplayUserChoiceStayOrExit();
+                UserChoiceStayOrExit();
             }
         }
 
@@ -153,7 +153,7 @@
             BackToMenuUser();
         }
 
-        private void DisplayMessageAfterLvl(int lvl, double score)
+        private void MessageAfterLvl(int lvl, double score)
         {
             Console.WriteLine($"You won {lvl} lvl!\t\tCurrent score: {score}");
 
@@ -161,7 +161,7 @@
             Console.Clear();
         }
 
-        private bool DisplayUserChoiceStayOrExit()
+        private bool UserChoiceStayOrExit()
         {
             Console.WriteLine("Do you want to continue playing or no? (y / n)");
             char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
@@ -171,6 +171,7 @@
                 case 'n': EnterUserMenu(); break;
                 default: break;
             }
+
             return userInputChoice.Equals('y') ? true : false;
         }
     }

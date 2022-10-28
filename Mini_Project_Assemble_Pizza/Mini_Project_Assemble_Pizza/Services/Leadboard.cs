@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Mini_Project_Assemble_Pizza.Entities;
-using Entity = Mini_Project_Assemble_Pizza.Entities;
-
-namespace Mini_Project_Assemble_Pizza.Services
+﻿namespace Mini_Project_Assemble_Pizza.Services
 {
+    using Mini_Project_Assemble_Pizza.Entities;
+    using System.Collections.Generic;
+    using System;
+
     internal class Leadboard
     {
         List<User> infoPersonList = new List<User>();
@@ -52,7 +51,7 @@ namespace Mini_Project_Assemble_Pizza.Services
 
         public void AddIntoLeadboard(User user)
         {
-            this.infoPersonList.Add(user);
+            infoPersonList.Add(user);
         }
 
         public void ChangeLeadboard(User user)
@@ -69,6 +68,5 @@ namespace Mini_Project_Assemble_Pizza.Services
                 }
             }
         }
-
     }
 }
