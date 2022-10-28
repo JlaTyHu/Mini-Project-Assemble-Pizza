@@ -2,11 +2,10 @@
 {
     using System.Collections.Generic;
     using Mini_Project_Assemble_Pizza.Interfaces;
-    using System;
     using Entity = Mini_Project_Assemble_Pizza.Entities;
-    using Mini_Project_Assemble_Pizza.Services;
+    using System;
 
-    public class CreateGame
+    public class CreateGame : DisplayService
     {
         private readonly IIngredientsService _ingredientsService;
 
@@ -65,28 +64,29 @@
 
         private double GuessTheIngredient(Dictionary<string, int> ingredients, double userScore, int gameLevel)
         {
-            DisplayMessageBeforeLvl(gameLevel, userScore);
-
-            Console.Write("Enter Ingredient: ");
-            string userInputIngredients = Console.ReadLine();
-
-            Console.Write("Enter number of pieces for ingredients: ");
-            int userInputNumberOfIngredients = Convert.ToInt32(Console.ReadLine());
-
-            if (ingredients.ContainsKey(userInputIngredients) && (ingredients[userInputIngredients] == userInputNumberOfIngredients))
+            for (; ingredients.Count != 0;)
             {
-                Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} have {ingredients[userInputIngredients]} pieces!\n");
+                DisplayMessageBeforeLvl(gameLevel, userScore);
 
-                ingredients.Remove(userInputIngredients);
+                Console.Write("Enter Ingredient: ");
+                string userInputIngredients = Console.ReadLine();
 
-                userScore = UserScore(userScore, gameLevel);
+                Console.Write("Enter number of pieces for ingredients: ");
+                int userInputNumberOfIngredients = Convert.ToInt32(Console.ReadLine());
+
+                if (ingredients.ContainsKey(userInputIngredients) && (ingredients[userInputIngredients] == userInputNumberOfIngredients))
+                {
+                    Console.WriteLine($"\nYou guessed! Ingredient: {userInputIngredients} have {ingredients[userInputIngredients]} pieces!\n");
+
+                    ingredients.Remove(userInputIngredients);
+                }
+                else
+                {
+                    throw new Exception("Input Error! You didn't guess the ingredient or quantity!");
+                }
             }
-            else
-            {
-                throw new Exception("Input Error! You didn't guess the ingredient or quantity!");
-            }
-
-            return userScore;
+            
+            return UserScore(userScore, gameLevel); ;
         }
 
         private void CreateAGame(int gameLevel, double userScore)
@@ -97,18 +97,7 @@
                 DisplayGamePause();
             }
         }
-
-        private void DisplayMessageBeforeLvl(int lvl, double score)
-        {
-            Console.WriteLine($"Current game level: {lvl}\t\t\tUser score: {score}\n");
-        }
-
-        private void DisplayGamePause()
-        {
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
-        }
-
+              
         private void BackToMenuUser()
         {
             Console.WriteLine("<= Back (Press b)");
@@ -158,22 +147,6 @@
             Leadboard leadboard = new Leadboard();
             leadboard.SortingList();
             leadboard.DisplayList();
-        }
-
-        private void DisplayMessageAfterLvl(int lvl, double score)
-        {
-            Console.WriteLine($"You won {lvl} lvl!\t\tCurrent score: {score}");
-
-            DisplayGamePause();
-            Console.Clear();
-        }
-
-        private bool DisplayUserChoiceStayOrExit()
-        {
-            Console.WriteLine("Do you want to continue playing or no? (yes / no)");
-            string userInputChoice = Console.ReadLine();
-
-            return userInputChoice.Equals("yes") ? true : false;
-        }
+        }            
     }
 }
