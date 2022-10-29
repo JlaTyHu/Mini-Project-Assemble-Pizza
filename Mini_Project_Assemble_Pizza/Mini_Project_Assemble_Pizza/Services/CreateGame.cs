@@ -9,12 +9,14 @@
     {
         private readonly IIngredientsService _ingredientsService;
         private readonly ILeadboard _leadboard;
-        public CreateGame(IIngredientsService ingredientsService, ILeadboard leadboard1)
+        public CreateGame(IIngredientsService ingredientsService)
         {
             this._ingredientsService = ingredientsService;
+        }
+        public CreateGame(ILeadboard leadboard1)
+        {
             this._leadboard = leadboard1;
         }
-
         protected void BeginGame(int gameLevel)
         {
             double userScore = 0;
@@ -118,6 +120,7 @@
         }
         public void ShowToUserLeadboard()
         {
+
             _leadboard.DisplayList();
             BackToMenuUser();
         }
