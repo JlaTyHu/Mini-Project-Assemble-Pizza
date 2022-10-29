@@ -2,15 +2,17 @@
 {
     using Mini_Project_Assemble_Pizza.Entities;
     using System.Collections.Generic;
+    using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
 
-    internal class Leadboard
+    internal class Leadboard : ILeadboard
     {
         List<User> infoPersonList = new List<User>();
 
         public void DisplayList()
         {
             Console.Clear();
+            SortingList();
 
             Console.WriteLine("Name: \t Age: \t Score:");
             foreach (var person in this.infoPersonList)
@@ -19,7 +21,7 @@
             }
         }
 
-        public void SortingList()
+        private void SortingList()
         {
             double userScore;
             int age;
@@ -49,24 +51,9 @@
             }
         }
 
-        public void AddIntoLeadboard(User user)
+        private void AddIntoLeadboard(User user)
         {
             infoPersonList.Add(user);
-        }
-
-        public void ChangeLeadboard(User user)
-        {
-            foreach (var person1 in infoPersonList)
-            {
-                var resultOfCompareOfNames = person1.UserName.CompareTo(user.UserName);
-                var resultOfCompareOfAge = person1.UserAge.CompareTo(user.UserAge);
-
-                if (resultOfCompareOfNames == 0 && resultOfCompareOfAge == 0)
-                {
-                    person1.UserScore = user.UserScore;
-                    break;
-                }
-            }
         }
     }
 }

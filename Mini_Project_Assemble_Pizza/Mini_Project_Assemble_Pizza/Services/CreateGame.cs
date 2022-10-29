@@ -8,10 +8,11 @@
     public class CreateGame : DisplayService
     {
         private readonly IIngredientsService _ingredientsService;
-       
-        public CreateGame(IIngredientsService ingredientsService) 
+        private readonly ILeadboard _leadboard;
+        public CreateGame(IIngredientsService ingredientsService, ILeadboard leadboard1)
         {
             this._ingredientsService = ingredientsService;
+            this._leadboard = leadboard1;
         }
 
         protected void BeginGame(int gameLevel)
@@ -117,9 +118,7 @@
         }
         public void ShowToUserLeadboard()
         {
-            Leadboard leadboard = new Leadboard();
-            leadboard.SortingList();
-            leadboard.DisplayList();
+            _leadboard.DisplayList();
             BackToMenuUser();
         }
         public void SelectLevelGame()
