@@ -6,6 +6,7 @@
     public class AuthorizationOfUserInput
     {
         private readonly IAuthorizationService _authorizationService;
+
         public AuthorizationOfUserInput(IAuthorizationService authorizationService)
         {
             this._authorizationService = authorizationService;

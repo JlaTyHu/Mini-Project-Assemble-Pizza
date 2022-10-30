@@ -1,8 +1,8 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
+    using Mini_Project_Assemble_Pizza.Interfaces;
     using Mini_Project_Assemble_Pizza.Entities;
     using System.Collections.Generic;
-    using Mini_Project_Assemble_Pizza.Interfaces;
     using System;
 
     internal class Leadboard : ILeadboard

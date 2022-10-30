@@ -2,18 +2,19 @@
 {
     using Mini_Project_Assemble_Pizza.Services;
     using Mini_Project_Assemble_Pizza.Services;
+
     public class Program
     {
         static void Main(string[] args)
         {
-            AuthorizationService authorizationService = new AuthorizationService();
-            AuthorizationOfUserInput authorizationOfUserInput = new AuthorizationOfUserInput(authorizationService);
+            AuthorizationService authorizationService = new ();
+            AuthorizationOfUserInput authorizationOfUserInput = new (authorizationService);
 
             authorizationOfUserInput.EnterUserInfo();
 
-            IngredientsService ingredientsService = new IngredientsService();
-            Leadboard leadboard = new Leadboard();
-            CreateGame createGame = new CreateGame(ingredientsService, leadboard);
+            IngredientsService ingredientsService = new ();
+            Leadboard leadboard = new ();
+            CreateGame createGame = new (ingredientsService, leadboard);
            
             createGame.EnterUserMenu();
         }

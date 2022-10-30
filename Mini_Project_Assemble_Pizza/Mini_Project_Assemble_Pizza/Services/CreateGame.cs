@@ -2,18 +2,19 @@
 {
     using Mini_Project_Assemble_Pizza.Interfaces;
     using System.Collections.Generic;
-    using Entity = Entities;
     using System;
 
     public class CreateGame : DisplayService
     {
         private readonly IIngredientsService _ingredientsService;
         private readonly ILeadboard _leadboard;
+
         public CreateGame(IIngredientsService ingredientsService, ILeadboard leadboard1)
         {
             this._ingredientsService = ingredientsService;
             this._leadboard = leadboard1;
         }
+
         protected void BeginGame(int gameLevel)
         {
             double userScore = 0;
@@ -69,6 +70,7 @@
                 DisplayGamePause();
             }
         }
+
         private double UserScore(double score, int lvl)
         {
             double scoreFormul = lvl == 1 ? 10 : 10 + lvl + score;
@@ -78,9 +80,9 @@
             return scoreFormul;
         }
 
-        private Entity.User ScoreEntitys(double score)
+        private Entities.User ScoreEntitys(double score)
         {
-            return new Entity.User
+            return new Entities.User
             {
                 UserScore = score,
             };
@@ -90,7 +92,6 @@
         {
             return gameLvl <= 5 ? gameLvl : 5;
         }
-
         
         public void EnterUserMenu()
         {
@@ -113,17 +114,21 @@
                 case 'x': Console.WriteLine("Game over!"); break;
                 default: throw new Exception("Invalid value!");
             }
+
             Console.Clear();
         }
+
         public void ShowToUserLeadboard()
         {
             _leadboard.DisplayList();
             BackToMenuUser();
         }
+
         public void SelectLevelGame()
         {
             Console.WriteLine("\nSelect level from 1 to 12: ");
             int gameLevel = Int32.Parse(Console.ReadLine());
+
             BeginGame(gameLevel);
         }
 
@@ -143,12 +148,14 @@
 
             BackToMenu(userInputChoice);
         }
+
         public void BackToMenu(char userInputChoice)
         {
             if (userInputChoice == ' ' || userInputChoice != 'b')
             {
                 throw new Exception("No such option!");
             }
+
             EnterUserMenu();
         }
 
@@ -156,6 +163,7 @@
         {
             Console.WriteLine("Do you want to continue playing or no? (y / n)");
             char userInputChoice = Char.ToLower(Console.ReadKey().KeyChar);
+
             switch (userInputChoice)
             {
                 case 'y': break;

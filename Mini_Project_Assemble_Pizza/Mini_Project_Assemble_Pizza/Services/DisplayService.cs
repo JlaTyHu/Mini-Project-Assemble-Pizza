@@ -1,7 +1,6 @@
 ﻿namespace Mini_Project_Assemble_Pizza.Services
 {
     using System;
-    using Mini_Project_Assemble_Pizza.Interfaces;
 
     public class DisplayService 
     {

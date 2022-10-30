@@ -38,6 +38,7 @@
         public void DisplayIngredientsAsTable()
         {
             AddIngredients();
+
             for (int elementsInLine = 1; elementsInLine-1 < _ingredients.Count; elementsInLine++)
             {
                 string displayMessage = elementsInLine % 2 == 0 ? $"{_ingredients[elementsInLine - 1]}" : $"\n{_ingredients[elementsInLine - 1]}\t\t";
